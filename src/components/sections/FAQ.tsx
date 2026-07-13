@@ -41,11 +41,62 @@ const FAQS: FaqItem[] = [
   },
 ];
 
+const THEMES = ['cyan', 'violet', 'orange', 'rose', 'green', 'yellow'];
+
+function FaqItemComponent({ item, index }: { item: FaqItem; index: number }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+  const theme = THEMES[index % THEMES.length];
+
+  return (
+    <motion.div
+      className={`cf-faq-item theme-${theme} ${isOpen ? 'open' : ''} ${isHover ? 'hover' : ''}`}
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, delay: index * 0.04, ease: 'easeOut' }}
+    >
+      <div className="cf-faq-relative-container">
+        {/* Cyber Folder Tabs */}
+        <div className="cf-faq-tab" />
+        <div className="cf-faq-tab-connector" />
+
+        {/* Main Question Panel */}
+        <div
+          className="cf-faq-question-panel"
+          onClick={() => setIsOpen(!isOpen)}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          <span className="cf-faq-question-text">{item.q}</span>
+          <div className="cf-faq-toggle-icon">
+            <svg
+              className="cf-faq-icon-svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Slide Down Answer Panel */}
+        <div className="cf-faq-answer-panel">
+          <div className="cf-faq-answer-inner">
+            <p className="cf-faq-answer-text">{item.a}</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
-
   return (
     <section id="faq" className="faq-outer-wrap-new" style={{ minHeight: '60vh' }}>
       <div className="section-container">
@@ -64,34 +115,7 @@ export function FAQ() {
 
         <div className="faq-list">
           {FAQS.map((item, i) => (
-            <motion.div
-              key={i}
-              className={`faq-card glass-panel ${openIndex === i ? 'active' : ''}`}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.4, delay: i * 0.04, ease: 'easeOut' }}
-            >
-              <button
-                className="faq-question-btn"
-                onClick={() => toggle(i)}
-                aria-expanded={openIndex === i}
-                id={`faq-btn-${i}`}
-              >
-                <span className="faq-question-text">{item.q}</span>
-                <span className="faq-arrow faq-arrow-icon">
-                  {openIndex === i ? '−' : '+'}
-                </span>
-              </button>
-              <div
-                className="faq-answer-container"
-                style={{ maxHeight: openIndex === i ? '300px' : '0' }}
-                role="region"
-                aria-labelledby={`faq-btn-${i}`}
-              >
-                <p className="faq-answer">{item.a}</p>
-              </div>
-            </motion.div>
+            <FaqItemComponent key={i} item={item} index={i} />
           ))}
         </div>
       </div>

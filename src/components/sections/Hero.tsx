@@ -12,7 +12,7 @@ export function Hero({ isReveal = false }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
   function calculateTimeLeft() {
-    const target = new Date('2026-08-22T18:00:00+05:30').getTime();
+    const target = new Date('2026-08-21T00:00:00+05:30').getTime();
     const now = new Date().getTime();
     const difference = target - now;
 
@@ -75,15 +75,16 @@ export function Hero({ isReveal = false }: HeroProps) {
           {/* Category */}
           <div className="hero-category">Annual National - Level Hackathon</div>
 
-          {/* Powering Partner */}
+          {/* Powering Partner — commented out, will reveal later
           <div className="hero-powering">
             <span>Powered by</span>
             <span className="hero-powering-highlight">ART PARK I-Hub @ IISc</span>
           </div>
+          */}
 
           {/* Event Dates */}
           <div className="hero-dates">
-            <span>22nd, 23rd &amp; 24th August 2026</span>
+            <span>21st, 22nd &amp; 23rd August 2026</span>
           </div>
 
           {/* Countdown Timer */}

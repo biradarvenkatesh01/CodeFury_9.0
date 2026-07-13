@@ -1419,57 +1419,184 @@
   display: block;
 }
 
-/* Section FAQ */
+/* Section FAQ - 3D Cyber Folder Tab Design */
 .faq-list {
   max-width: 760px;
-  margin: 0 auto;
+  margin: 40px auto 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 36px; /* Increased gap to accommodate the tabs */
   width: 100%;
 }
 
-.faq-card {
-  padding: 0;
-  overflow: hidden;
+.cf-faq-item {
+  position: relative;
+  width: 100%;
 }
 
-.faq-question-btn {
+.cf-faq-relative-container {
+  position: relative;
   width: 100%;
-  background: transparent;
-  border: none;
+}
+
+/* Cyber Folder Tabs styling with thick 3D borders */
+.cf-faq-tab {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  height: 14px;
+  background: #3b82f6; /* fallback default */
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border: 2.5px solid #000000;
+  border-bottom: none;
+  width: 65px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.cf-faq-tab-connector {
+  position: absolute;
+  top: -4px;
+  left: 20px;
+  height: 6px;
+  background: #3b82f6; /* fallback default */
+  border-left: 2.5px solid #000000;
+  width: 85px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Theme Colors for tabs & answer borders */
+.cf-faq-item.theme-cyan .cf-faq-tab,
+.cf-faq-item.theme-cyan .cf-faq-tab-connector {
+  background: #06b6d4;
+}
+.cf-faq-item.theme-violet .cf-faq-tab,
+.cf-faq-item.theme-violet .cf-faq-tab-connector {
+  background: #8b5cf6;
+}
+.cf-faq-item.theme-orange .cf-faq-tab,
+.cf-faq-item.theme-orange .cf-faq-tab-connector {
+  background: #f97316;
+}
+.cf-faq-item.theme-rose .cf-faq-tab,
+.cf-faq-item.theme-rose .cf-faq-tab-connector {
+  background: #f43f5e;
+}
+.cf-faq-item.theme-green .cf-faq-tab,
+.cf-faq-item.theme-green .cf-faq-tab-connector {
+  background: #10b981;
+}
+.cf-faq-item.theme-yellow .cf-faq-tab,
+.cf-faq-item.theme-yellow .cf-faq-tab-connector {
+  background: #f59e0b;
+}
+
+/* Main Question Card - 3D White Card Style */
+.cf-faq-question-panel {
+  position: relative;
+  z-index: 10;
+  background: #e2e8f0;
+  border: 2.5px solid #000000;
+  border-radius: 12px;
   padding: 20px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
   cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.cf-faq-item.open .cf-faq-question-panel {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  transform: translateY(0) translateX(0);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.cf-faq-question-text {
+  color: #000000;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  user-select: none;
   text-align: left;
+  flex: 1;
 }
 
-.faq-arrow {
-  font-size: 20px;
-  color: var(--color-secondary);
+/* Plus/X Icon Toggle */
+.cf-faq-toggle-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+  color: #000000;
+  flex-shrink: 0;
+  margin-left: 16px;
 }
 
-.faq-answer-container {
+.cf-faq-item.hover .cf-faq-toggle-icon {
+  transform: rotate(90deg);
+}
+
+.cf-faq-item.open .cf-faq-toggle-icon {
+  transform: rotate(135deg);
+}
+
+.cf-faq-icon-svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Answer Slide Down Panel (Behind Layer) */
+.cf-faq-answer-panel {
+  position: relative;
+  z-index: 9;
+  background: #3b82f6; /* fallback default */
+  border: 2.5px solid #000000;
+  border-top: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+  transition: max-height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+  margin-top: -2.5px;
+  box-shadow: 6px 6px 0px #000000;
 }
 
-.faq-card.active .faq-answer-container {
-  max-height: 200px;
-  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+/* Theme Colors for answer panels */
+.cf-faq-item.theme-cyan .cf-faq-answer-panel { background: #06b6d4; }
+.cf-faq-item.theme-violet .cf-faq-answer-panel { background: #8b5cf6; }
+.cf-faq-item.theme-orange .cf-faq-answer-panel { background: #f97316; }
+.cf-faq-item.theme-rose .cf-faq-answer-panel { background: #f43f5e; }
+.cf-faq-item.theme-green .cf-faq-answer-panel { background: #10b981; }
+.cf-faq-item.theme-yellow .cf-faq-answer-panel { background: #f59e0b; }
+
+.cf-faq-item.open .cf-faq-answer-panel {
+  max-height: 500px;
+  opacity: 1;
+  padding: 4px; /* Creates the outer folder outline effect */
 }
 
-.faq-answer {
-  padding: 0 24px 24px 24px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  font-size: 14px;
+.cf-faq-answer-inner {
+  background: #e2e8f0;
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.cf-faq-answer-text {
+  color: #0f172a;
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 0;
+  text-align: left;
 }
 
 /* Section Contact */
@@ -2888,26 +3015,7 @@
 }
 
 .faq-heading-accent {
-  color: #06b6d4;
-}
-
-/* Override max-height for taller answers */
-.faq-answer-container {
-  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease !important;
-}
-
-.faq-question-text {
-  text-align: left;
-  flex: 1;
-}
-
-.faq-arrow-icon {
-  font-size: 22px;
-  color: #3b82f6;
-  font-weight: 300;
-  flex-shrink: 0;
-  margin-left: 12px;
-  line-height: 1;
+  color: var(--color-secondary);
 }
 
 /* =====================================================
@@ -3083,22 +3191,45 @@
 .footer-dev-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-top: 12px;
 }
 
 .footer-dev-link {
-  color: var(--color-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
-  transition: color 0.2s;
+  padding: 5px 12px 5px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.25s ease;
 }
 
 .footer-dev-link:hover {
-  color: var(--color-primary);
-  text-decoration: underline;
+  background: rgba(10, 102, 194, 0.18);
+  border-color: rgba(10, 102, 194, 0.45);
+  color: #70b5f9;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 12px rgba(10, 102, 194, 0.15);
+}
+
+.footer-linkedin-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: #0a66c2;
+  transition: color 0.25s ease;
+}
+
+.footer-dev-link:hover .footer-linkedin-icon {
+  color: #70b5f9;
 }
 
 .footer-dev-separator {
