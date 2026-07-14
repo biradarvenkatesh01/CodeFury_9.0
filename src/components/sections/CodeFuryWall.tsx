@@ -48,7 +48,7 @@ export function CodeFuryWall() {
         </motion.div>
 
         <motion.div
-          className="wall-gallery-wrap"
+          className="wall-gallery-wrap wall-card-2d"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -58,36 +58,17 @@ export function CodeFuryWall() {
         >
           {/* Main slider viewport */}
           <div className="wall-slider-viewport">
-            <div
-              className="wall-slider-track"
-              style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-              {GALLERY_IMAGES.map((src, i) => (
-                <div className="wall-slider-slide" key={i}>
-                  <img
-                    src={src}
-                    alt={`CodeFury event photo ${i + 1}`}
-                    className="wall-slider-img"
-                  />
-                </div>
-              ))}
+            <div className="wall-slider-single-container">
+              <motion.img
+                key={current}
+                src={GALLERY_IMAGES[current]}
+                alt={`CodeFury event photo ${current + 1}`}
+                className="wall-slider-img"
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.25 }}
+              />
             </div>
-
-            {/* Prev / Next arrows */}
-            <button
-              className="wall-nav-btn wall-nav-prev"
-              onClick={goPrev}
-              aria-label="Previous photo"
-            >
-              ‹
-            </button>
-            <button
-              className="wall-nav-btn wall-nav-next"
-              onClick={goNext}
-              aria-label="Next photo"
-            >
-              ›
-            </button>
 
             {/* Counter badge */}
             <div className="wall-counter-badge">
@@ -95,30 +76,14 @@ export function CodeFuryWall() {
             </div>
           </div>
 
-          {/* Dot navigation */}
-          <div className="wall-dot-row">
-            {GALLERY_IMAGES.map((_, i) => (
-              <button
-                key={i}
-                className={`wall-dot ${i === current ? 'active' : ''}`}
-                onClick={() => setCurrent(i)}
-                aria-label={`Go to photo ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Thumbnail strip */}
-          <div className="wall-thumb-strip">
-            {GALLERY_IMAGES.map((src, i) => (
-              <button
-                key={i}
-                className={`wall-thumb ${i === current ? 'active' : ''}`}
-                onClick={() => setCurrent(i)}
-                aria-label={`Photo ${i + 1}`}
-              >
-                <img src={src} alt={`Thumb ${i + 1}`} />
-              </button>
-            ))}
+          {/* Bottom navigation controls */}
+          <div className="wall-bottom-controls">
+            <button className="wall-ctrl-btn" onClick={goPrev} aria-label="Previous photo">
+              ◀
+            </button>
+            <button className="wall-ctrl-btn" onClick={goNext} aria-label="Next photo">
+              ▶
+            </button>
           </div>
         </motion.div>
       </div>

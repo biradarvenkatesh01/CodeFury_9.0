@@ -20,6 +20,7 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     description: 'Kickstart your CodeFury journey, form your dream team and register!',
     colorTheme: 'green',
   },
+  /*
   {
     date: '12th and 13th August 2026',
     title: 'Workshop - "Git Ready, Set, Code"',
@@ -43,6 +44,7 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     note: '* Registrations extended to August 20th, 2026, 4:00 PM',
     colorTheme: 'rose',
   },
+  */
   {
     date: 'August 21-22, 2026',
     title: 'CodeFury Round 1',

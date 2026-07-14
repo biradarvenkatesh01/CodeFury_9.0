@@ -8,6 +8,7 @@ export function Game() {
   const introRef     = useRef<HTMLDivElement>(null);
   const perfectRef   = useRef<HTMLDivElement>(null);
   const restartRef   = useRef<HTMLButtonElement>(null);
+  const jumpBtnRef   = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current || !scoreRef.current || !introRef.current || !perfectRef.current || !restartRef.current) return;
@@ -18,6 +19,7 @@ export function Game() {
     const introEl   = introRef.current!;
     const perfectEl = perfectRef.current!;
     const restartBtn = restartRef.current!;
+    const jumpBtn    = jumpBtnRef.current;
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
@@ -92,6 +94,10 @@ export function Game() {
       perfectEl.style.opacity = '0';
       restartBtn.style.display = 'none';
       scoreEl.innerText = '0';
+
+      if (jumpBtn) {
+        jumpBtn.innerText = 'HOLD TO STRETCH';
+      }
 
       platforms = [{ x: 50, w: 50 }];
       for (let i = 0; i < 4; i++) generatePlatform();
@@ -188,6 +194,9 @@ export function Game() {
           const maxHeroY = platformHeight + 100 + (canvas.height - canvasHeight) / 2;
           if (heroY > maxHeroY) {
             restartBtn.style.display = 'flex';
+            if (jumpBtn) {
+              jumpBtn.innerText = 'RESTART GAME';
+            }
             return;
           }
           break;
@@ -318,6 +327,11 @@ export function Game() {
 
     // ── Event listeners ───────────────────────────────────────────────────────
     const onMouseDown = () => {
+      if (jumpBtn && jumpBtn.innerText === 'RESTART GAME') {
+        resetGame();
+        return;
+      }
+
       if (phase === 'waiting') {
         lastTimestamp = undefined;
         introEl.style.opacity = '0';
@@ -337,8 +351,10 @@ export function Game() {
 
     const onResize = () => { resize(); draw(); };
 
-    canvas.addEventListener('mousedown',  onMouseDown);
-    canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+    if (jumpBtn) {
+      jumpBtn.addEventListener('mousedown',  onMouseDown);
+      jumpBtn.addEventListener('touchstart', onTouchStart, { passive: false });
+    }
     
     window.addEventListener('mouseup',   onMouseUp);
     window.addEventListener('touchend',  onMouseUp);
@@ -355,8 +371,10 @@ export function Game() {
     return () => {
       isActive = false;
       cancelAnimationFrame(animId);
-      canvas.removeEventListener('mousedown',  onMouseDown);
-      canvas.removeEventListener('touchstart', onTouchStart);
+      if (jumpBtn) {
+        jumpBtn.removeEventListener('mousedown',  onMouseDown);
+        jumpBtn.removeEventListener('touchstart', onTouchStart);
+      }
       window.removeEventListener('mouseup',   onMouseUp);
       window.removeEventListener('touchend',  onMouseUp);
       window.removeEventListener('resize',    onResize);
@@ -379,8 +397,8 @@ export function Game() {
           </h2>
           <div className="heading-underline" />
           <p className="game-section-hint">
-            <span className="game-hint-desktop">Hold down the mouse button on the canvas to stretch the stick · release to drop!</span>
-            <span className="game-hint-mobile">Tap and hold the canvas to stretch the stick · release to drop!</span>
+            <span className="game-hint-desktop">Hold down the button below to stretch the stick · release to drop!</span>
+            <span className="game-hint-mobile">Tap and hold the button below to stretch the stick · release to drop!</span>
             <br />
             <span className="game-hint-small">Land perfectly in the red zone for <strong>DOUBLE SCORE</strong></span>
           </p>
@@ -408,7 +426,7 @@ export function Game() {
 
             {/* Intro overlay */}
             <div ref={introRef} className="game-intro-new">
-              Tap &amp; hold on the canvas<br />
+              Tap &amp; hold on the button below<br />
               to stretch out a stick
             </div>
 
@@ -420,6 +438,13 @@ export function Game() {
             {/* Restart button */}
             <button ref={restartRef} className="game-restart-new" aria-label="Restart Game">
               RESTART
+            </button>
+          </div>
+
+          {/* Action button */}
+          <div className="game-bottom-controls">
+            <button ref={jumpBtnRef} className="game-action-btn">
+              HOLD TO STRETCH
             </button>
           </div>
         </motion.div>
