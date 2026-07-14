@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Header } from './components/Header';
 import { Hero } from './components/sections/Hero';
@@ -57,27 +58,36 @@ export function App() {
       <ParticleBackground />
 
       {/* Fixed top Header Navigation */}
-      <Header />
+      {introComplete && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.0, ease: "easeOut" }}
+          style={{ width: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}
+        >
+          <Header />
 
-      <main>
-        <Hero onExplore={handleExplore} isReveal={introComplete} />
-        <About />
-        <Tracks />
-        <PrizePool />
-        <Timeline />
-        <CodeFuryWall />
-        <PastWinners />
-        {/* <Sponsors /> */}
-        <Game />
-        <FAQ />
-        <Contact />
-      </main>
+          <main>
+            <Hero onExplore={handleExplore} isReveal={introComplete} />
+            <About />
+            <Tracks />
+            <PrizePool />
+            <Timeline />
+            <CodeFuryWall />
+            <PastWinners />
+            {/* <Sponsors /> */}
+            <Game />
+            <FAQ />
+            <Contact />
+          </main>
 
-      {/* Floating utility */}
-      <BackToTopButton />
+          {/* Floating utility */}
+          <BackToTopButton />
 
-      {/* Pure black association footer */}
-      <Footer />
+          {/* Pure black association footer */}
+          <Footer />
+        </motion.div>
+      )}
     </div>
   );
 }

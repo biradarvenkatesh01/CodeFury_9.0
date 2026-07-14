@@ -53,16 +53,20 @@ export function Hero({ isReveal = false }: HeroProps) {
   }, []);
 
   return (
-    <motion.section
+    <section
       id="hero"
       className="section-hero"
-      initial={{ opacity: 0, y: 40 }}
-      animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Top Part: White Textured Background */}
-      <div className="hero-top-section">
-        <div className="hero-content">
+      {/* First Fold Container (White Hero + Marquee Bar) */}
+      <div className="hero-first-fold">
+        {/* Top Part: White Textured Background */}
+        <div className="hero-top-section">
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           {/* Presenting Org */}
           <div className="hero-org">IEEE UVCE Computer Society Presents</div>
 
@@ -164,7 +168,7 @@ export function Hero({ isReveal = false }: HeroProps) {
               </div>
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Infinite Marquee Bar located exactly at the boundary */}
@@ -180,10 +184,16 @@ export function Hero({ isReveal = false }: HeroProps) {
           </div>
         </div>
       </div>
+      </div>
 
       {/* Bottom Part: Dark Starry Background */}
       <div className="hero-bottom-section">
-        <div className="hero-content">
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+        >
           {/* Co-Presenters Logo Row */}
           <div className="presenters-block">
             {/* Mobile-only title (hidden on PC) */}
@@ -220,9 +230,9 @@ export function Hero({ isReveal = false }: HeroProps) {
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

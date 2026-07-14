@@ -33,13 +33,11 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(6, 7, 11, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: #000000;
   font-family: var(--font-averta-std);
   color: #ffffff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 
@@ -255,9 +253,17 @@
   z-index: 1;
 }
 
+.hero-first-fold {
+  width: 100%;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+}
+
 .hero-top-section {
   width: 100%;
-  padding: 80px 24px 32px 24px; /* Reduced bottom padding for tighter gap above marquee */
+  flex: 1;
+  padding: 40px 24px;
   box-sizing: border-box;
   background-image: url('./assets/hero-bg-white.png');
   background-repeat: repeat;
@@ -272,7 +278,7 @@
 
 .hero-bottom-section {
   width: 100%;
-  padding: 56px 24px 64px 24px;
+  padding: 100px 24px 120px 24px;
   box-sizing: border-box;
   background: transparent; /* Starry background and canvas particles show through */
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -521,10 +527,10 @@
 
 .presenters-title {
   font-family: var(--font-heading);
-  font-size: 16px; /* increased from 11px */
+  font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   color: var(--text-muted);
   text-align: center;
 }
@@ -551,7 +557,7 @@
 
 .presenters-separator {
   width: 1px;
-  height: 70px;
+  height: 96px;
   background-color: rgba(255, 255, 255, 0.15);
   user-select: none;
 }
@@ -579,7 +585,7 @@
 }
 
 .presenter-logo-img {
-  height: 80px;
+  height: 110px;
   width: auto;
   display: block;
 }
@@ -1915,9 +1921,13 @@
     display: block !important;
   }
 
+  .hero-bottom-section {
+    padding: 80px 20px 100px 20px;
+  }
+
   .presenters-title {
-    font-size: 14px;
-    margin-bottom: 24px;
+    font-size: 16px;
+    margin-bottom: 28px;
     letter-spacing: 2px;
   }
 
@@ -1925,50 +1935,88 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 28px;
   }
 
   .presenters-separator.mobile-only {
     display: block !important;
-    width: 180px;
+    width: 220px;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.15);
-    margin: 8px 0;
+    margin: 14px 0;
   }
 
   .presenter-logo-img {
-    height: 64px;
+    height: 84px;
   }
 }
 
 /* ==========================================
    Terminal Loading Screen & Boot Intro Styles
    ========================================== */
-.terminal-loader-overlay {
+.ti-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #1e1e24; /* Macbook terminal background */
+  background-color: transparent;
   z-index: 99999;
-  font-family: var(--font-mono);
-  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: var(--font-mono);
   transition: opacity 0.4s ease;
 }
 
-.terminal-loader-overlay.fade-out {
+.ti-overlay.ti-fade-out {
   opacity: 0;
   pointer-events: none;
 }
 
+/* CRT Phosphor Scanline/Grid filter overlay */
+.ti-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.03),
+    rgba(6, 182, 212, 0.02),
+    rgba(244, 63, 94, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 100005;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* The centered 3D Flat Cyber Box Window */
+.ti-box-window {
+  background-color: #e2e8f0; /* retro folder grey */
+  border: 3.5px solid #000000;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 680px;
+  box-shadow: 12px 12px 0px #000000; /* pixel flat shadow */
+  overflow: hidden;
+  position: relative;
+  z-index: 100003;
+}
+
 /* macOS Window Header Bar */
-.mac-terminal-header {
-  background-color: #e1e1e6;
-  border-bottom: 1px solid #c8c8cd;
-  height: 36px;
+.ti-header {
+  background-color: #cbd5e1;
+  border-bottom: 3.5px solid #000000;
+  height: 46px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1976,128 +2024,225 @@
   user-select: none;
   position: relative;
   flex-shrink: 0;
+  z-index: 100004;
 }
 
-.mac-window-controls {
+.ti-dots {
   display: flex;
   gap: 8px;
 }
 
-.mac-dot {
+.ti-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  border: 2px solid #000000;
+  cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
-.mac-dot.red { background-color: #ff5f56; }
-.mac-dot.yellow { background-color: #ffbd2e; }
-.mac-dot.green { background-color: #27c93f; }
+.ti-dot:hover {
+  transform: scale(1.15);
+}
 
-.mac-terminal-title {
-  color: #3a3a3a;
+.ti-dot--red { background-color: #ff5f56; }
+.ti-dot--yellow { background-color: #ffbd2e; }
+.ti-dot--green { background-color: #27c93f; }
+
+.ti-header-title {
+  color: #000000;
   font-size: 13px;
-  font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-weight: 700;
+  font-family: var(--font-mono);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  letter-spacing: 0.5px;
 }
 
-.mac-terminal-skip {
-  background: transparent;
-  border: 1px solid #8e8e93;
-  color: #3a3a3a;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+.ti-skip-btn {
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  color: #000000;
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: bold;
   padding: 3px 8px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s ease;
+  box-shadow: 2px 2px 0px #000000;
   outline: none;
 }
 
-.mac-terminal-skip:hover {
-  background-color: #3a3a3a;
-  color: #ffffff;
-  border-color: #3a3a3a;
+.ti-skip-btn:hover {
+  background-color: #f1f5f9;
+  transform: translateY(-1px) translateX(-1px);
+  box-shadow: 3px 3px 0px #000000;
 }
 
 /* Console Content Area */
-.mac-terminal-body {
-  flex: 1;
-  padding: 24px;
+.ti-body {
+  padding: 28px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   overflow-y: auto;
+  background-color: #e2e8f0;
+  min-height: 380px;
 }
 
-.terminal-line {
+/* ASCII logo block */
+.ti-logo-block {
+  white-space: pre;
+  font-size: clamp(5px, 0.95vw, 10px);
+  line-height: 1.25;
+  margin-bottom: 24px;
+  color: #5b21b6; /* deep violet logo color for high contrast */
+  width: 100%;
+}
+
+.ti-logo-row {
+  width: 100%;
+}
+
+.ti-lines-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.ti-line {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  font-size: 16px;
-  color: #ffffff; /* Clean white text */
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-.terminal-prompt {
-  color: #ffffff;
-  margin-right: 10px;
-  user-select: none;
-}
-
-.terminal-text {
-  color: #ffffff;
-}
-
-.terminal-text-status-open {
-  color: #4ade80; /* Nice readable green for status */
+  font-size: 14.5px;
+  color: #0f172a; /* dark slate body text */
+  line-height: 1.5;
+  width: 100%;
   font-weight: bold;
 }
 
-.terminal-cursor {
+.ti-prompt {
+  color: #4f46e5; /* indigo prompt color */
+  font-weight: bold;
+  opacity: 0.95;
+  margin-right: 8px;
+  user-select: none;
+}
+
+.ti-line-text {
+  color: #0f172a;
+}
+
+/* Modifiers for custom highlighting on light grey */
+.ti-line--highlight .ti-line-text {
+  color: #0891b2 !important; /* deep cyan */
+  font-weight: bold;
+}
+
+.ti-line--success .ti-line-text {
+  color: #047857 !important; /* deep green */
+  font-weight: bold;
+}
+
+.ti-cursor {
   display: inline-block;
-  width: 9px;
+  width: 8px;
   height: 15px;
-  background-color: #ffffff;
-  animation: terminal-blink 0.9s infinite;
+  background-color: #000000;
+  animation: ti-blink 0.9s infinite;
   margin-left: 4px;
   vertical-align: middle;
 }
 
-@keyframes terminal-blink {
+@keyframes ti-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
 
+/* Progress bar loader formatting */
+.ti-progress-wrap {
+  margin-top: auto;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12.5px;
+  width: 100%;
+}
+
+.ti-progress-label {
+  color: #475569;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.ti-progress-bar {
+  color: #334155;
+  letter-spacing: 1px;
+}
+
+.ti-bar-fill {
+  color: #4f46e5;
+}
+
+.ti-bar-empty {
+  color: #cbd5e1;
+}
+
+.ti-progress-pct {
+  color: #4f46e5;
+  font-weight: bold;
+  min-width: 40px;
+}
+
+/* Scrolling Hex Background stream at bottom */
+.ti-hex-stream {
+  font-size: 10.5px;
+  color: rgba(79, 70, 229, 0.18); /* light indigo stream */
+  font-family: var(--font-mono);
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+  height: 16px;
+  margin-top: 12px;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
 /* Responsiveness for mobile screens */
 @media (max-width: 768px) {
-  .mac-terminal-body {
-    padding: 16px;
+  .ti-body {
+    padding: 12px 16px;
+    min-height: 280px;
   }
   
-  .terminal-line {
-    font-size: clamp(9px, 3.2vw, 13px);
-    margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
+  .ti-line {
+    font-size: clamp(9px, 2.7vw, 12px);
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
-  .terminal-cursor {
+  .ti-logo-block {
+    font-size: 0.9vw;
+    letter-spacing: -0.4px;
+    width: 100%;
+    overflow-x: visible;
+  }
+
+  .ti-cursor {
     width: 6px;
     height: 12px;
   }
 
-  .mac-terminal-title {
+  .ti-header-title {
     font-size: 11px;
   }
 }

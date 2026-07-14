@@ -1,167 +1,166 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface TerminalIntroProps {
   onComplete: () => void;
 }
 
+const ASCII_LOGO = [
+  '  ██████╗ ██████╗ ██████╗ ███████╗███████╗██╗   ██╗██████╗ ██╗   ██╗            ██████╗      ██████╗ ',
+  ' ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██║   ██║██╔══██╗╚██╗ ██╔╝           ██╔═══██╗    ██╔═══██╗',
+  ' ██║     ██║   ██║██║  ██║█████╗  █████╗  ██║   ██║██████╔╝ ╚████╔╝            ╚██████╔╝    ██║   ██║',
+  ' ██║     ██║   ██║██║  ██║██╔══╝  ██╔══╝  ██║   ██║██╔══██╗  ╚██╔╝              ╚═══██║     ██║   ██║',
+  ' ╚██████╗╚██████╔╝██████╔╝███████╗██║     ╚██████╔╝██║  ██║   ██║   █████████╗ ██████╔╝ ██╗ ╚██████╔╝',
+  '  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚════════╝ ╚═════╝  ╚═╝  ╚═════╝ ',
+];
+
+const BOOT_LINES = [
+  { text: 'loading codefury_9.0 ... OK', delay: 150 },
+  { text: 'registration_status: OPEN', delay: 180, highlight: true },
+  { text: 'boot_sequence: SUCCESS ✓', delay: 180, success: true },
+];
+
+
+
 export function TerminalIntro({ onComplete }: TerminalIntroProps) {
-  const [line1, setLine1] = useState('');
-  const [line2, setLine2] = useState('');
-  const [line3, setLine3] = useState('');
-  const [statusVisible, setStatusVisible] = useState(false);
-  const [line4, setLine4] = useState('');
-  const [isFading, setIsFading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [visibleLines, setVisibleLines] = useState<number>(-1);
+  const [typedLines, setTypedLines] = useState<string[]>(Array(BOOT_LINES.length).fill(''));
+  const [progress, setProgress] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+  const [showLogo, setShowLogo] = useState(false);
+  const [logoLines, setLogoLines] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 600);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const check = () => setIsMobile(window.innerWidth <= 700);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
-  const prompt = isMobile ? '[visitor@cf9 %]' : '[visitor@codefury-9.0 %]';
 
-  useEffect(() => {
-    // Prevent scrolling while intro is active
-    document.body.style.overflow = 'hidden';
-
-    // Sequence of typing text
-    const txt1 = 'initializing_codefury_9.0';
-    const txt2 = 'loading_tracks...';
-    const txt3 = 'registration_status:';
-    const txt4 = 'boot_sequence: SUCCESS';
-
-    let active = true;
-
-    const runAnimation = async () => {
-      const delay = (ms: number) =>
-        new Promise<void>((resolve) => {
-          if (!active) return;
-          setTimeout(resolve, ms);
-        });
-
-      // Start after initial delay
-      await delay(400);
-
-      // Type line 1
-      for (let i = 1; i <= txt1.length; i++) {
-        if (!active) return;
-        setLine1(txt1.slice(0, i));
-        await delay(55);
-      }
-
-      await delay(350);
-
-      // Type line 2
-      for (let i = 1; i <= txt2.length; i++) {
-        if (!active) return;
-        setLine2(txt2.slice(0, i));
-        await delay(55);
-      }
-
-      await delay(350);
-
-      // Type line 3
-      for (let i = 1; i <= txt3.length; i++) {
-        if (!active) return;
-        setLine3(txt3.slice(0, i));
-        await delay(50);
-      }
-
-      await delay(250);
-      if (!active) return;
-      setStatusVisible(true);
-
-      await delay(450);
-
-      // Type line 4
-      for (let i = 1; i <= txt4.length; i++) {
-        if (!active) return;
-        setLine4(txt4.slice(0, i));
-        await delay(45);
-      }
-
-      await delay(1000);
-      if (!active) return;
-      setIsFading(true);
-
-      await delay(500);
-      if (active) {
-        onComplete();
-      }
-    };
-
-    runAnimation();
-
-    return () => {
-      active = false;
-      document.body.style.overflow = '';
-    };
-  }, [onComplete]);
 
   const handleSkip = () => {
     setIsFading(true);
-    setTimeout(onComplete, 250);
+    setTimeout(onComplete, 350);
   };
 
+  useEffect(() => {
+    let active = true;
+    const delay = (ms: number) =>
+      new Promise<void>((res) => setTimeout(() => { if (active) res(); }, ms));
+
+    const run = async () => {
+      // Show ASCII logo line by line
+      await delay(200);
+      setShowLogo(true);
+      const logoArr = ASCII_LOGO;
+      for (let i = 1; i <= logoArr.length; i++) {
+        if (!active) return;
+        setLogoLines(i);
+        await delay(60);
+      }
+      await delay(300);
+
+      // Type each boot line
+      for (let li = 0; li < BOOT_LINES.length; li++) {
+        if (!active) return;
+        const { text, delay: d } = BOOT_LINES[li];
+        setVisibleLines(li);
+        await delay(d);
+        // Type character by character
+        for (let ci = 1; ci <= text.length; ci++) {
+          if (!active) return;
+          setTypedLines((prev) => {
+            const next = [...prev];
+            next[li] = text.slice(0, ci);
+            return next;
+          });
+          await delay(28);
+        }
+        // Tick progress bar
+        setProgress(Math.round(((li + 1) / BOOT_LINES.length) * 100));
+        await delay(80);
+      }
+
+      await delay(900);
+      if (!active) return;
+      setIsFading(true);
+      await delay(500);
+      if (active) onComplete();
+    };
+
+    run();
+    return () => { active = false; };
+  }, [onComplete, isMobile]);
+
+  const logoArr = ASCII_LOGO;
+  const prompt = isMobile ? '[Codefury_9.0]$' : '[visitor@Codefury_9.0 ~]$';
+  const barFilled = Math.round(progress / 5); // out of 20 chars
+
   return (
-    <div className={`terminal-loader-overlay ${isFading ? 'fade-out' : ''}`}>
-      {/* macOS Header Bar */}
-      <div className="mac-terminal-header">
-        <div className="mac-window-controls">
-          <span className="mac-dot red" onClick={handleSkip} style={{ cursor: 'pointer' }}></span>
-          <span className="mac-dot yellow"></span>
-          <span className="mac-dot green"></span>
-        </div>
-        <div className="mac-terminal-title">
-          <span>📁</span> CODEFURY_9.0 — bash
-        </div>
-        <button className="mac-terminal-skip" onClick={handleSkip}>
-          [SKIP]
-        </button>
-      </div>
+    <div className={`ti-overlay${isFading ? ' ti-fade-out' : ''}`}>
+      {/* Scanline overlay */}
+      <div className="ti-scanlines" aria-hidden="true" />
 
-      {/* Terminal Body */}
-      <div className="mac-terminal-body">
-        {/* Line 1 */}
-        <div className="terminal-line">
-          <span className="terminal-prompt">{prompt}</span>
-          <span className="terminal-text">&nbsp;{line1}</span>
-          {!line2 && <span className="terminal-cursor"></span>}
-        </div>
-
-        {/* Line 2 */}
-        {line2 !== '' && (
-          <div className="terminal-line">
-            <span className="terminal-prompt">{prompt}</span>
-            <span className="terminal-text">&nbsp;{line2}</span>
-            {!line3 && <span className="terminal-cursor"></span>}
+      {/* 3D Cyber Terminal Window Box */}
+      <div className="ti-box-window">
+        {/* macOS-style header */}
+        <div className="ti-header">
+          <div className="ti-dots">
+            <span className="ti-dot ti-dot--red" onClick={handleSkip} title="Close / Skip" />
+            <span className="ti-dot ti-dot--yellow" />
+            <span className="ti-dot ti-dot--green" />
           </div>
-        )}
+          <div className="ti-header-title">📁 CodeFury_9.0 — bash</div>
+          <button className="ti-skip-btn" onClick={handleSkip}>[ SKIP ]</button>
+        </div>
 
-        {/* Line 3 */}
-        {line3 !== '' && (
-          <div className="terminal-line">
-            <span className="terminal-prompt">{prompt}</span>
-            <span className="terminal-text">&nbsp;{line3}</span>
-            {statusVisible && (
-              <span className="terminal-text-status-open"> OPEN</span>
+        {/* Terminal body */}
+        <div className="ti-body">
+          {/* ASCII logo */}
+          {showLogo && (
+            <div className="ti-logo-block">
+              {logoArr.slice(0, logoLines).map((row, i) => (
+                <div key={i} className="ti-logo-row">{row}</div>
+              ))}
+            </div>
+          )}
+
+          {/* Boot lines */}
+          <div className="ti-lines-block">
+            {BOOT_LINES.map((bl, i) =>
+              i <= visibleLines ? (
+                <div
+                  key={i}
+                  className={`ti-line${bl.highlight ? ' ti-line--highlight' : ''}${bl.success ? ' ti-line--success' : ''}`}
+                >
+                  <span className="ti-prompt">{prompt}</span>
+                  <span className="ti-line-text">&nbsp;{typedLines[i]}</span>
+                  {/* blinking cursor on the last active line */}
+                  {i === visibleLines && typedLines[i].length < bl.text.length && (
+                    <span className="ti-cursor" />
+                  )}
+                </div>
+              ) : null
             )}
-            {statusVisible && !line4 && <span className="terminal-cursor"></span>}
           </div>
-        )}
 
-        {/* Line 4 */}
-        {line4 !== '' && (
-          <div className="terminal-line">
-            <span className="terminal-prompt">{prompt}</span>
-            <span className="terminal-text">&nbsp;{line4}</span>
-            <span className="terminal-cursor"></span>
-          </div>
-        )}
+          {/* Progress bar */}
+          {progress > 0 && (
+            <div className="ti-progress-wrap">
+              <span className="ti-progress-label">LOADING</span>
+              <span className="ti-progress-bar">
+                {'['}
+                <span className="ti-bar-fill">{'█'.repeat(barFilled)}</span>
+                <span className="ti-bar-empty">{'░'.repeat(20 - barFilled)}</span>
+                {']'}
+              </span>
+              <span className="ti-progress-pct">{progress}%</span>
+            </div>
+          )}
+
+
+        </div>
       </div>
     </div>
   );
