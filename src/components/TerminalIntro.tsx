@@ -40,33 +40,26 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
       // Show logo image
       await delay(200);
       setShowLogo(true);
-      await delay(600);
+      await delay(450);
 
-      // Type each boot line
+      // Print each boot line instantly
       for (let li = 0; li < BOOT_LINES.length; li++) {
         if (!active) return;
         const { text, delay: d } = BOOT_LINES[li];
         setVisibleLines(li);
-        await delay(d);
-        // Type character by character
-        for (let ci = 1; ci <= text.length; ci++) {
-          if (!active) return;
-          setTypedLines((prev) => {
-            const next = [...prev];
-            next[li] = text.slice(0, ci);
-            return next;
-          });
-          await delay(28);
-        }
-        // Tick progress bar
+        setTypedLines((prev) => {
+          const next = [...prev];
+          next[li] = text;
+          return next;
+        });
         setProgress(Math.round(((li + 1) / BOOT_LINES.length) * 100));
-        await delay(80);
+        await delay(d + 180);
       }
 
-      await delay(900);
+      await delay(450);
       if (!active) return;
       setIsFading(true);
-      await delay(500);
+      await delay(300);
       if (active) onComplete();
     };
 

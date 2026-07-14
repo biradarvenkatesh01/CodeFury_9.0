@@ -84,10 +84,7 @@ export function ParticleBackground() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-        ctx.shadowBlur = 4;
-        ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
         ctx.fill();
-        ctx.shadowBlur = 0; // Reset shadow
 
         // Check distance to mouse
         const dxMouse = mouse.x - p.x;
