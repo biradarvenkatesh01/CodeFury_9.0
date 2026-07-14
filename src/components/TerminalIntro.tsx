@@ -38,9 +38,9 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
 
     const run = async () => {
       // Show logo image
-      await delay(200);
+      await delay(400);
       setShowLogo(true);
-      await delay(450);
+      await delay(600);
 
       // Print each boot line instantly
       for (let li = 0; li < BOOT_LINES.length; li++) {
@@ -53,13 +53,13 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
           return next;
         });
         setProgress(Math.round(((li + 1) / BOOT_LINES.length) * 100));
-        await delay(d + 180);
+        await delay(d + 300);
       }
 
-      await delay(450);
+      await delay(600);
       if (!active) return;
       setIsFading(true);
-      await delay(300);
+      await delay(400);
       if (active) onComplete();
     };
 
