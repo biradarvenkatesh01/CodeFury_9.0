@@ -281,7 +281,7 @@
   text-align: center;
 }
 
-/* Technical Corner brackets with animation */
+/* Technical Corner brackets */
 .hero-corner-mark {
   position: absolute;
   width: 18px;
@@ -289,79 +289,7 @@
   border: 3px solid #000000;
   pointer-events: none;
   z-index: 5;
-  
-  /* Initial State: Center of the container, transparent */
-  opacity: 0;
-  top: 50% !important;
-  left: 50% !important;
-  right: auto !important;
-  bottom: auto !important;
-  transform: translate(-50%, -50%);
-  
-  /* Smooth transform transition when class '.revealed' is added */
-  transition: 
-    top 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-    left 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hero-top-section.revealed .hero-corner-mark {
-  opacity: 1;
-}
-
-/* Animate Top-Left */
-.hero-top-section.revealed .hero-corner-mark.top-left {
-  top: 24px !important;
-  left: 24px !important;
-  border-right: none;
-  border-bottom: none;
-  transform: translate(0, 0);
-}
-
-/* Animate Top-Right */
-.hero-top-section.revealed .hero-corner-mark.top-right {
-  top: 24px !important;
-  left: calc(100% - 24px - 18px) !important;
-  border-left: none;
-  border-bottom: none;
-  transform: translate(0, 0);
-}
-
-/* Animate Bottom-Left */
-.hero-top-section.revealed .hero-corner-mark.bottom-left {
-  top: calc(100% - 24px - 18px) !important;
-  left: 24px !important;
-  border-right: none;
-  border-top: none;
-  transform: translate(0, 0);
-}
-
-/* Animate Bottom-Right */
-.hero-top-section.revealed .hero-corner-mark.bottom-right {
-  top: calc(100% - 24px - 18px) !important;
-  left: calc(100% - 24px - 18px) !important;
-  border-left: none;
-  border-top: none;
-  transform: translate(0, 0);
-}
-
-@media (max-width: 700px) {
-  .hero-top-section.revealed .hero-corner-mark.top-left {
-    top: 16px !important;
-    left: 16px !important;
-  }
-  .hero-top-section.revealed .hero-corner-mark.top-right {
-    top: 16px !important;
-    left: calc(100% - 16px - 18px) !important;
-  }
-  .hero-top-section.revealed .hero-corner-mark.bottom-left {
-    top: calc(100% - 16px - 18px) !important;
-    left: 16px !important;
-  }
-  .hero-top-section.revealed .hero-corner-mark.bottom-right {
-    top: calc(100% - 16px - 18px) !important;
-    left: calc(100% - 16px - 18px) !important;
-  }
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.12);
 }
 
 .hero-bottom-section {

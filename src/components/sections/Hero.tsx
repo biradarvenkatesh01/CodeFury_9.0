@@ -10,6 +10,14 @@ interface HeroProps {
 
 export function Hero({ isReveal = false }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 700);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   function calculateTimeLeft() {
     const target = new Date('2026-08-21T00:00:00+05:30').getTime();
@@ -52,6 +60,60 @@ export function Hero({ isReveal = false }: HeroProps) {
     return () => clearInterval(timer);
   }, []);
 
+  const inset = isMobile ? 16 : 24;
+  const size = 18; // Size of bracket mark
+
+  const bracketTransition = {
+    duration: 1.25,
+    ease: [0.16, 1, 0.3, 1], // easeOutExpo
+  };
+
+  const topLeftVariants = {
+    hidden: { left: 'calc(50% - 21px)', top: 'calc(50% - 21px)', opacity: 0 },
+    visible: { left: `${inset}px`, top: `${inset}px`, opacity: 1 }
+  };
+
+  const topRightVariants = {
+    hidden: { left: 'calc(50% + 3px)', top: 'calc(50% - 21px)', opacity: 0 },
+    visible: { left: `calc(100% - ${inset}px - ${size}px)`, top: `${inset}px`, opacity: 1 }
+  };
+
+  const bottomLeftVariants = {
+    hidden: { left: 'calc(50% - 21px)', top: 'calc(50% + 3px)', opacity: 0 },
+    visible: { left: `${inset}px`, top: `calc(100% - ${inset}px - ${size}px)`, opacity: 1 }
+  };
+
+  const bottomRightVariants = {
+    hidden: { left: 'calc(50% + 3px)', top: 'calc(50% + 3px)', opacity: 0 },
+    visible: { left: `calc(100% - ${inset}px - ${size}px)`, top: `calc(100% - ${inset}px - ${size}px)`, opacity: 1 }
+  };
+
+  const contentMaskVariants = {
+    hidden: {
+      clipPath: 'inset(calc(50% - 21px) calc(50% - 21px) calc(50% - 21px) calc(50% - 21px) rounded 4px)',
+      opacity: 0
+    },
+    visible: {
+      clipPath: 'inset(0% 0% 0% 0% rounded 0px)',
+      opacity: 1,
+      transition: {
+        duration: 1.25,
+        ease: [0.16, 1, 0.3, 1],
+        staggerChildren: 0.08,
+        delayChildren: 0.55
+      }
+    }
+  };
+
+  const textItemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.65, ease: "easeOut" }
+    }
+  };
+
   return (
     <section
       id="hero"
@@ -62,119 +124,144 @@ export function Hero({ isReveal = false }: HeroProps) {
         {/* Top Part: White Textured Background */}
         <div className={`hero-top-section ${isReveal ? 'revealed' : ''}`}>
           {/* Corner brackets */}
-          <div className="hero-corner-mark top-left" aria-hidden="true" />
-          <div className="hero-corner-mark top-right" aria-hidden="true" />
-          <div className="hero-corner-mark bottom-left" aria-hidden="true" />
-          <div className="hero-corner-mark bottom-right" aria-hidden="true" />
+          <motion.div
+            className="hero-corner-mark top-left"
+            style={{ borderRight: 'none', borderBottom: 'none' }}
+            variants={topLeftVariants}
+            initial="hidden"
+            animate={isReveal ? "visible" : "hidden"}
+            transition={bracketTransition}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="hero-corner-mark top-right"
+            style={{ borderLeft: 'none', borderBottom: 'none' }}
+            variants={topRightVariants}
+            initial="hidden"
+            animate={isReveal ? "visible" : "hidden"}
+            transition={bracketTransition}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="hero-corner-mark bottom-left"
+            style={{ borderRight: 'none', borderTop: 'none' }}
+            variants={bottomLeftVariants}
+            initial="hidden"
+            animate={isReveal ? "visible" : "hidden"}
+            transition={bracketTransition}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="hero-corner-mark bottom-right"
+            style={{ borderLeft: 'none', borderTop: 'none' }}
+            variants={bottomRightVariants}
+            initial="hidden"
+            animate={isReveal ? "visible" : "hidden"}
+            transition={bracketTransition}
+            aria-hidden="true"
+          />
 
           <motion.div
             className="hero-content"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 1.0, ease: "easeOut", delay: 0.2 }}
-        >
-          {/* Presenting Org */}
-          <div className="hero-org">IEEE UVCE Computer Society Presents</div>
+            variants={contentMaskVariants}
+            initial="hidden"
+            animate={isReveal ? "visible" : "hidden"}
+          >
+            {/* Presenting Org */}
+            <motion.div className="hero-org" variants={textItemVariants}>IEEE UVCE Computer Society Presents</motion.div>
 
-          {/* Event Title */}
-          <h1 className="hero-title">CodeFury 9.0</h1>
+            {/* Event Title */}
+            <motion.h1 className="hero-title" variants={textItemVariants}>CodeFury 9.0</motion.h1>
 
-          {/* Tagline */}
-          <div className="hero-tagline">Esc + the + Ordinary</div>
+            {/* Tagline */}
+            <motion.div className="hero-tagline" variants={textItemVariants}>Esc + the + Ordinary</motion.div>
 
-          {/* Category */}
-          <div className="hero-category">Annual National - Level Hackathon</div>
+            {/* Category */}
+            <motion.div className="hero-category" variants={textItemVariants}>Annual National - Level Hackathon</motion.div>
 
-          {/* Powering Partner — commented out, will reveal later
-          <div className="hero-powering">
-            <span>Powered by</span>
-            <span className="hero-powering-highlight">ART PARK I-Hub @ IISc</span>
-          </div>
-          */}
+            {/* Event Dates */}
+            <motion.div className="hero-dates" variants={textItemVariants}>
+              <span>21st, 22nd &amp; 23rd August 2026</span>
+            </motion.div>
 
-          {/* Event Dates */}
-          <div className="hero-dates">
-            <span>21st, 22nd &amp; 23rd August 2026</span>
-          </div>
-
-          {/* Countdown Timer */}
-          <div className="countdown-container">
-            <div className="countdown-timer-grid">
-              <div className="countdown-card">
-                <span className="countdown-val">{timeLeft.days}</span>
-                <span className="countdown-label">Days</span>
+            {/* Countdown Timer */}
+            <motion.div className="countdown-container" variants={textItemVariants}>
+              <div className="countdown-timer-grid">
+                <div className="countdown-card">
+                  <span className="countdown-val">{timeLeft.days}</span>
+                  <span className="countdown-label">Days</span>
+                </div>
+                <div className="countdown-card">
+                  <span className="countdown-val">{timeLeft.hours}</span>
+                  <span className="countdown-label">Hours</span>
+                </div>
+                <div className="countdown-card">
+                  <span className="countdown-val">{timeLeft.minutes}</span>
+                  <span className="countdown-label">Mins</span>
+                </div>
+                <div className="countdown-card">
+                  <span className="countdown-val">{timeLeft.seconds}</span>
+                  <span className="countdown-label">Secs</span>
+                </div>
               </div>
-              <div className="countdown-card">
-                <span className="countdown-val">{timeLeft.hours}</span>
-                <span className="countdown-label">Hours</span>
-              </div>
-              <div className="countdown-card">
-                <span className="countdown-val">{timeLeft.minutes}</span>
-                <span className="countdown-label">Mins</span>
-              </div>
-              <div className="countdown-card">
-                <span className="countdown-val">{timeLeft.seconds}</span>
-                <span className="countdown-label">Secs</span>
-              </div>
-            </div>
-          </div>
+            </motion.div>
 
-          {/* Action Buttons */}
-          <div className="hero-actions">
-            <a href="#register" className="btn-register-3d" aria-label="Register Now">
-              <div className="btn-register-3d-wrapper">
-                <svg
-                  width="160"
-                  height="54"
-                  viewBox="0 0 160 54"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Top Face (Light Blue) */}
-                  <polygon
-                    points="2,12 14,2 158,2 146,12"
-                    fill="#3b82f6"
-                    stroke="#000000"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  
-                  {/* Right Face (Medium Blue) */}
-                  <polygon
-                    points="146,12 158,2 158,42 146,52"
-                    fill="#1d4ed8"
-                    stroke="#000000"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  
-                  {/* Front Face (White) */}
-                  <polygon
-                    points="2,12 146,12 146,52 2,52"
-                    fill="#ffffff"
-                    stroke="#000000"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-
-                  {/* Text centered on the front face */}
-                  <text
-                    x="74"
-                    y="32"
-                    fill="#000000"
-                    fontSize="13"
-                    fontWeight="bold"
-                    textAnchor="middle"
-                    fontFamily="var(--font-mono)"
-                    dominantBaseline="central"
+            {/* Action Buttons */}
+            <motion.div className="hero-actions" variants={textItemVariants}>
+              <a href="#register" className="btn-register-3d" aria-label="Register Now">
+                <div className="btn-register-3d-wrapper">
+                  <svg
+                    width="160"
+                    height="54"
+                    viewBox="0 0 160 54"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    REGISTER NOW
-                  </text>
-                </svg>
-              </div>
-            </a>
-          </div>
-        </motion.div>
+                    {/* Top Face (Light Blue) */}
+                    <polygon
+                      points="2,12 14,2 158,2 146,12"
+                      fill="#3b82f6"
+                      stroke="#000000"
+                      strokeWidth="2.5"
+                      strokeLinejoin="round"
+                    />
+                    
+                    {/* Right Face (Medium Blue) */}
+                    <polygon
+                      points="146,12 158,2 158,42 146,52"
+                      fill="#1d4ed8"
+                      stroke="#000000"
+                      strokeWidth="2.5"
+                      strokeLinejoin="round"
+                    />
+                    
+                    {/* Front Face (White) */}
+                    <polygon
+                      points="2,12 146,12 146,52 2,52"
+                      fill="#ffffff"
+                      stroke="#000000"
+                      strokeWidth="2.5"
+                      strokeLinejoin="round"
+                    />
+
+                    {/* Text centered on the front face */}
+                    <text
+                      x="74"
+                      y="32"
+                      fill="#000000"
+                      fontSize="13"
+                      fontWeight="bold"
+                      textAnchor="middle"
+                      fontFamily="var(--font-mono)"
+                      dominantBaseline="central"
+                    >
+                      REGISTER NOW
+                    </text>
+                  </svg>
+                </div>
+              </a>
+            </motion.div>
+          </motion.div>
       </div>
 
       {/* Infinite Marquee Bar located exactly at the boundary */}
