@@ -2231,8 +2231,8 @@
   }
 
   .ti-logo-block {
-    font-size: 1.4vw;
-    letter-spacing: -0.2px;
+    font-size: 0.9vw;
+    letter-spacing: -0.4px;
     width: 100%;
     overflow-x: visible;
   }
@@ -2244,11 +2244,6 @@
 
   .ti-header-title {
     font-size: 11px;
-  }
-
-  .ti-progress-wrap {
-    font-size: 11px;
-    gap: 6px;
   }
 }
 

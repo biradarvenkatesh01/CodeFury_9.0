@@ -13,21 +13,6 @@ const ASCII_LOGO = [
   '  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚════════╝ ╚═════╝  ╚═╝  ╚═════╝ ',
 ];
 
-const ASCII_LOGO_MOBILE = [
-  '  ██████╗ ██████╗ ██████╗ ███████╗███████╗██╗   ██╗██████╗ ██╗   ██╗',
-  ' ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██║   ██║██╔══██╗╚██╗ ██╔╝',
-  ' ██║     ██║   ██║██║  ██║█████╗  █████╗  ██║   ██║██████╔╝ ╚████╔╝ ',
-  ' ██║     ██║   ██║██║  ██║██╔══╝  ██╔══╝  ██║   ██║██╔══██╗  ╚██╔╝  ',
-  ' ╚██████╗╚██████╔╝██████╔╝███████╗██║     ╚██████╔╝██║  ██║   ██║   ',
-  '  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ',
-  '               █████████╗ ██████╗  ████╗ ██████╗ ',
-  '               ╚════════╝██╔══██╗  ╚═══╝██╔══██╗ ',
-  '                         ███████║  ████╗██║  ██║ ',
-  '                         ╚═══███║  ██║  ██║  ██║ ',
-  '                         ██████╔╝  ████╗╚██████╔╝ ',
-  '                         ╚═════╝   ╚═══╝ ╚═════╝  ',
-];
-
 const BOOT_LINES = [
   { text: 'loading codefury_9.0 ... OK', delay: 150 },
   { text: 'registration_status: OPEN', delay: 180, highlight: true },
@@ -68,7 +53,7 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
       // Show ASCII logo line by line
       await delay(200);
       setShowLogo(true);
-      const logoArr = isMobile ? ASCII_LOGO_MOBILE : ASCII_LOGO;
+      const logoArr = ASCII_LOGO;
       for (let i = 1; i <= logoArr.length; i++) {
         if (!active) return;
         setLogoLines(i);
@@ -108,10 +93,9 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
     return () => { active = false; };
   }, [onComplete, isMobile]);
 
-  const logoArr = isMobile ? ASCII_LOGO_MOBILE : ASCII_LOGO;
+  const logoArr = ASCII_LOGO;
   const prompt = isMobile ? '[Codefury_9.0]$' : '[visitor@Codefury_9.0 ~]$';
-  const barMax = isMobile ? 12 : 20;
-  const barFilled = Math.round(progress / (100 / barMax));
+  const barFilled = Math.round(progress / 5); // out of 20 chars
 
   return (
     <div className={`ti-overlay${isFading ? ' ti-fade-out' : ''}`}>
@@ -168,7 +152,7 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
               <span className="ti-progress-bar">
                 {'['}
                 <span className="ti-bar-fill">{'█'.repeat(barFilled)}</span>
-                <span className="ti-bar-empty">{'░'.repeat(barMax - barFilled)}</span>
+                <span className="ti-bar-empty">{'░'.repeat(20 - barFilled)}</span>
                 {']'}
               </span>
               <span className="ti-progress-pct">{progress}%</span>
