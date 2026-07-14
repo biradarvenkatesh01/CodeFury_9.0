@@ -13,9 +13,9 @@ const CONTACTS: ContactPerson[] = [
   {
     role: 'Chairperson, Computer Society, IEEE UVCE',
     name: 'Yashaswini C Rao',
-    phone: '+91 90084 16648',
-    email: 'namrathasridhar29@ieee.org',
-    whatsapp: 'https://wa.me/917406543569',
+    phone: '+91 63606 75258',
+    email: 'yashaswinirao12@gmail.com',
+    whatsapp: 'https://wa.me/916360675258',
     colorTheme: { top: '#3b82f6', right: '#1d4ed8', front: '#eff6ff' },
   },
   {
