@@ -61,7 +61,6 @@ export function Hero({ isReveal = false }: HeroProps) {
   }, []);
 
   const inset = isMobile ? 16 : 24;
-  const size = 18; // Size of bracket mark
 
   const bracketTransition = {
     duration: 1.25,
@@ -69,28 +68,28 @@ export function Hero({ isReveal = false }: HeroProps) {
   };
 
   const topLeftVariants = {
-    hidden: { left: 'calc(50% - 21px)', top: 'calc(50% - 21px)', opacity: 0 },
+    hidden: { left: 'calc(50% - 18px)', top: 'calc(50% - 18px)', opacity: 0 },
     visible: { left: `${inset}px`, top: `${inset}px`, opacity: 1 }
   };
 
   const topRightVariants = {
-    hidden: { left: 'calc(50% + 3px)', top: 'calc(50% - 21px)', opacity: 0 },
-    visible: { left: `calc(100% - ${inset}px - ${size}px)`, top: `${inset}px`, opacity: 1 }
+    hidden: { left: 'auto', right: 'calc(50% - 18px)', top: 'calc(50% - 18px)', opacity: 0 },
+    visible: { left: 'auto', right: `${inset}px`, top: `${inset}px`, opacity: 1 }
   };
 
   const bottomLeftVariants = {
-    hidden: { left: 'calc(50% - 21px)', top: 'calc(50% + 3px)', opacity: 0 },
-    visible: { left: `${inset}px`, top: `calc(100% - ${inset}px - ${size}px)`, opacity: 1 }
+    hidden: { left: 'calc(50% - 18px)', top: 'auto', bottom: 'calc(50% - 18px)', opacity: 0 },
+    visible: { left: `${inset}px`, top: 'auto', bottom: `${inset}px`, opacity: 1 }
   };
 
   const bottomRightVariants = {
-    hidden: { left: 'calc(50% + 3px)', top: 'calc(50% + 3px)', opacity: 0 },
-    visible: { left: `calc(100% - ${inset}px - ${size}px)`, top: `calc(100% - ${inset}px - ${size}px)`, opacity: 1 }
+    hidden: { left: 'auto', top: 'auto', right: 'calc(50% - 18px)', bottom: 'calc(50% - 18px)', opacity: 0 },
+    visible: { left: 'auto', top: 'auto', right: `${inset}px`, bottom: `${inset}px`, opacity: 1 }
   };
 
   const contentMaskVariants = {
     hidden: {
-      clipPath: 'inset(calc(50% - 21px) calc(50% - 21px) calc(50% - 21px) calc(50% - 21px) rounded 4px)',
+      clipPath: 'inset(calc(50% - 18px) calc(50% - 18px) calc(50% - 18px) calc(50% - 18px) rounded 4px)',
       opacity: 0
     },
     visible: {
