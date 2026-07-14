@@ -2118,8 +2118,8 @@
 
 .ti-line {
   display: flex;
-  align-items: center;
-  white-space: nowrap;
+  flex-wrap: wrap;
+  align-items: baseline;
   font-size: 14.5px;
   color: #0f172a; /* dark slate body text */
   line-height: 1.5;
@@ -2224,17 +2224,25 @@
   }
   
   .ti-line {
+    display: block;
     font-size: clamp(9px, 2.7vw, 12px);
-    margin-bottom: 4px;
-    white-space: pre-wrap;
+    margin-bottom: 6px;
+    white-space: normal;
     word-break: break-word;
   }
 
-  .ti-logo-block {
-    font-size: 0.9vw;
-    letter-spacing: -0.4px;
-    width: 100%;
-    overflow-x: visible;
+  .ti-prompt {
+    display: inline;
+    margin-right: 4px;
+  }
+
+  .ti-line-text {
+    display: inline;
+  }
+
+  .ti-logo-svg {
+    max-height: 54px;
+    margin-bottom: 16px;
   }
 
   .ti-cursor {

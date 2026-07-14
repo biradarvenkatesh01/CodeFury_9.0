@@ -117,13 +117,30 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
 
         {/* Terminal body */}
         <div className="ti-body">
-          {/* ASCII logo */}
+          {/* ASCII logo rendered as SVG for perfect scalability and zero distortion */}
           {showLogo && (
-            <div className="ti-logo-block">
+            <svg
+              viewBox="0 0 740 90"
+              width="100%"
+              height="auto"
+              className="ti-logo-svg"
+              style={{ display: 'block', marginBottom: '20px' }}
+            >
               {logoArr.slice(0, logoLines).map((row, i) => (
-                <div key={i} className="ti-logo-row">{row}</div>
+                <text
+                  key={i}
+                  x="0"
+                  y={13 + i * 13}
+                  fontFamily="Courier, monospace"
+                  fontSize="10"
+                  fontWeight="900"
+                  fill="#5b21b6"
+                  xmlSpace="preserve"
+                >
+                  {row}
+                </text>
               ))}
-            </div>
+            </svg>
           )}
 
           {/* Boot lines */}
