@@ -37,29 +37,46 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
       new Promise<void>((res) => setTimeout(() => { if (active) res(); }, ms));
 
     const run = async () => {
-      // Show logo image
+      // 1. Show logo first
       await delay(400);
       setShowLogo(true);
-      await delay(600);
+      await delay(800);
 
-      // Print each boot line instantly
+      // 2. Type each boot line character by character
       for (let li = 0; li < BOOT_LINES.length; li++) {
         if (!active) return;
-        const { text, delay: d } = BOOT_LINES[li];
+        const { text } = BOOT_LINES[li];
+        
+        // Make the line active
         setVisibleLines(li);
-        setTypedLines((prev) => {
-          const next = [...prev];
-          next[li] = text;
-          return next;
-        });
+        
+        // Type characters
+        for (let ci = 1; ci <= text.length; ci++) {
+          if (!active) return;
+          setTypedLines((prev) => {
+            const next = [...prev];
+            next[li] = text.slice(0, ci);
+            return next;
+          });
+          await delay(20);
+        }
+        
+        // Update progress percentage
         setProgress(Math.round(((li + 1) / BOOT_LINES.length) * 100));
-        await delay(d + 300);
+        
+        // Delay before typing next log
+        if (li === 0 || li === 1) {
+          await delay(300);
+        } else {
+          await delay(160);
+        }
       }
 
-      await delay(600);
+      // 3. Complete and fade out
+      await delay(200);
       if (!active) return;
       setIsFading(true);
-      await delay(400);
+      await delay(300);
       if (active) onComplete();
     };
 
