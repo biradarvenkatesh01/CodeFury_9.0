@@ -60,12 +60,18 @@ export function Hero({ isReveal = false }: HeroProps) {
       {/* First Fold Container (White Hero + Marquee Bar) */}
       <div className="hero-first-fold">
         {/* Top Part: White Textured Background */}
-        <div className="hero-top-section">
-        <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <div className={`hero-top-section ${isReveal ? 'revealed' : ''}`}>
+          {/* Corner brackets */}
+          <div className="hero-corner-mark top-left" aria-hidden="true" />
+          <div className="hero-corner-mark top-right" aria-hidden="true" />
+          <div className="hero-corner-mark bottom-left" aria-hidden="true" />
+          <div className="hero-corner-mark bottom-right" aria-hidden="true" />
+
+          <motion.div
+            className="hero-content"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 1.0, ease: "easeOut", delay: 0.2 }}
         >
           {/* Presenting Org */}
           <div className="hero-org">IEEE UVCE Computer Society Presents</div>

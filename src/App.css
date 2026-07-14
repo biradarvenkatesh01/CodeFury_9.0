@@ -265,15 +265,103 @@
   flex: 1;
   padding: 40px 24px;
   box-sizing: border-box;
-  background-image: url('./assets/hero-bg-white.png');
-  background-repeat: repeat;
-  background-size: auto;
-  background-position: center top;
+  background: 
+    radial-gradient(circle at center, rgba(99, 102, 241, 0.09) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    url('./assets/hero-bg-white.png');
+  background-size: 100% 100%, 24px 24px, 24px 24px, auto;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-position: center center, center top, center top, center top;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+/* Technical Corner brackets with animation */
+.hero-corner-mark {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #000000;
+  pointer-events: none;
+  z-index: 5;
+  
+  /* Initial State: Center of the container, transparent */
+  opacity: 0;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%);
+  
+  /* Smooth transform transition when class '.revealed' is added */
+  transition: 
+    top 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    left 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-top-section.revealed .hero-corner-mark {
+  opacity: 1;
+}
+
+/* Animate Top-Left */
+.hero-top-section.revealed .hero-corner-mark.top-left {
+  top: 24px !important;
+  left: 24px !important;
+  border-right: none;
+  border-bottom: none;
+  transform: translate(0, 0);
+}
+
+/* Animate Top-Right */
+.hero-top-section.revealed .hero-corner-mark.top-right {
+  top: 24px !important;
+  left: calc(100% - 24px - 18px) !important;
+  border-left: none;
+  border-bottom: none;
+  transform: translate(0, 0);
+}
+
+/* Animate Bottom-Left */
+.hero-top-section.revealed .hero-corner-mark.bottom-left {
+  top: calc(100% - 24px - 18px) !important;
+  left: 24px !important;
+  border-right: none;
+  border-top: none;
+  transform: translate(0, 0);
+}
+
+/* Animate Bottom-Right */
+.hero-top-section.revealed .hero-corner-mark.bottom-right {
+  top: calc(100% - 24px - 18px) !important;
+  left: calc(100% - 24px - 18px) !important;
+  border-left: none;
+  border-top: none;
+  transform: translate(0, 0);
+}
+
+@media (max-width: 700px) {
+  .hero-top-section.revealed .hero-corner-mark.top-left {
+    top: 16px !important;
+    left: 16px !important;
+  }
+  .hero-top-section.revealed .hero-corner-mark.top-right {
+    top: 16px !important;
+    left: calc(100% - 16px - 18px) !important;
+  }
+  .hero-top-section.revealed .hero-corner-mark.bottom-left {
+    top: calc(100% - 16px - 18px) !important;
+    left: 16px !important;
+  }
+  .hero-top-section.revealed .hero-corner-mark.bottom-right {
+    top: calc(100% - 16px - 18px) !important;
+    left: calc(100% - 16px - 18px) !important;
+  }
 }
 
 .hero-bottom-section {
