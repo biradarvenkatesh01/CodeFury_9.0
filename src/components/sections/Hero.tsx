@@ -74,7 +74,7 @@ export function Hero({ isReveal = false }: HeroProps) {
           <h1 className="hero-title">CodeFury 9.0</h1>
 
           {/* Tagline */}
-          <div className="hero-tagline">Fury in Code, Ready to Explode</div>
+          <div className="hero-tagline">Esc + the + Ordinary</div>
 
           {/* Category */}
           <div className="hero-category">Annual National - Level Hackathon</div>
