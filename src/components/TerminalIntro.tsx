@@ -1,25 +1,15 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import terminalLogo from '../assets/terminal-logo.png';
 
 interface TerminalIntroProps {
   onComplete: () => void;
 }
 
-const ASCII_LOGO = [
-  '  ██████╗ ██████╗ ██████╗ ███████╗███████╗██╗   ██╗██████╗ ██╗   ██╗            ██████╗      ██████╗ ',
-  ' ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██║   ██║██╔══██╗╚██╗ ██╔╝           ██╔═══██╗    ██╔═══██╗',
-  ' ██║     ██║   ██║██║  ██║█████╗  █████╗  ██║   ██║██████╔╝ ╚████╔╝            ╚██████╔╝    ██║   ██║',
-  ' ██║     ██║   ██║██║  ██║██╔══╝  ██╔══╝  ██║   ██║██╔══██╗  ╚██╔╝              ╚═══██║     ██║   ██║',
-  ' ╚██████╗╚██████╔╝██████╔╝███████╗██║     ╚██████╔╝██║  ██║   ██║   █████████╗ ██████╔╝ ██╗ ╚██████╔╝',
-  '  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚════════╝ ╚═════╝  ╚═╝  ╚═════╝ ',
-];
-
 const BOOT_LINES = [
-  { text: 'loading codefury_9.0 ... OK', delay: 150 },
+  { text: 'loading CodeFury_9.0 ... OK', delay: 150 },
   { text: 'registration_status: OPEN', delay: 180, highlight: true },
   { text: 'boot_sequence: SUCCESS ✓', delay: 180, success: true },
 ];
-
-
 
 export function TerminalIntro({ onComplete }: TerminalIntroProps) {
   const [isMobile, setIsMobile] = useState(false);
@@ -28,7 +18,6 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
   const [progress, setProgress] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [showLogo, setShowLogo] = useState(false);
-  const [logoLines, setLogoLines] = useState(0);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 700);
@@ -50,16 +39,10 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
       new Promise<void>((res) => setTimeout(() => { if (active) res(); }, ms));
 
     const run = async () => {
-      // Show ASCII logo line by line
+      // Show logo image
       await delay(200);
       setShowLogo(true);
-      const logoArr = ASCII_LOGO;
-      for (let i = 1; i <= logoArr.length; i++) {
-        if (!active) return;
-        setLogoLines(i);
-        await delay(60);
-      }
-      await delay(300);
+      await delay(500);
 
       // Type each boot line
       for (let li = 0; li < BOOT_LINES.length; li++) {
@@ -93,15 +76,12 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
     return () => { active = false; };
   }, [onComplete, isMobile]);
 
-  const logoArr = ASCII_LOGO;
-  const prompt = isMobile ? '[Codefury_9.0]$' : '[visitor@Codefury_9.0 ~]$';
+
+  const prompt = isMobile ? '[CodeFury_9.0]$' : '[visitor@CodeFury_9.0 ~]$';
   const barFilled = Math.round(progress / 5); // out of 20 chars
 
   return (
     <div className={`ti-overlay${isFading ? ' ti-fade-out' : ''}`}>
-      {/* Scanline overlay */}
-      <div className="ti-scanlines" aria-hidden="true" />
-
       {/* 3D Cyber Terminal Window Box */}
       <div className="ti-box-window">
         {/* macOS-style header */}
@@ -117,30 +97,11 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
 
         {/* Terminal body */}
         <div className="ti-body">
-          {/* ASCII logo rendered as SVG for perfect scalability and zero distortion */}
+          {/* Scalable, crisp logo image from assets */}
           {showLogo && (
-            <svg
-              viewBox="0 0 740 90"
-              width="100%"
-              height="auto"
-              className="ti-logo-svg"
-              style={{ display: 'block', marginBottom: '20px' }}
-            >
-              {logoArr.slice(0, logoLines).map((row, i) => (
-                <text
-                  key={i}
-                  x="0"
-                  y={13 + i * 13}
-                  fontFamily="Courier, monospace"
-                  fontSize="10"
-                  fontWeight="900"
-                  fill="#5b21b6"
-                  xmlSpace="preserve"
-                >
-                  {row}
-                </text>
-              ))}
-            </svg>
+            <div className="ti-logo-image-wrap">
+              <img src={terminalLogo} alt="CODEFURY_9.0" className="ti-logo-image" />
+            </div>
           )}
 
           {/* Boot lines */}
