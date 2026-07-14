@@ -75,7 +75,7 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
   }, [onComplete]);
 
   const prompt = isMobile ? '[Codefury_9.0]$' : '[visitor@Codefury_9.0 ~]$';
-  const barFilled = Math.round(progress / 5); // out of 20 chars
+
 
   return (
     <div className={`ti-overlay${isFading ? ' ti-fade-out' : ''}`}>
@@ -124,14 +124,7 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
           {/* Progress bar */}
           {progress > 0 && (
             <div className="ti-progress-wrap">
-              <span className="ti-progress-label">LOADING</span>
-              <span className="ti-progress-bar">
-                {'['}
-                <span className="ti-bar-fill">{'█'.repeat(barFilled)}</span>
-                <span className="ti-bar-empty">{'░'.repeat(20 - barFilled)}</span>
-                {']'}
-              </span>
-              <span className="ti-progress-pct">{progress}%</span>
+              <span className="ti-progress-label">LOADING {progress}%</span>
             </div>
           )}
         </div>
