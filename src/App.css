@@ -2259,6 +2259,20 @@
   .ti-header-title {
     font-size: 11px;
   }
+
+  .ti-progress-wrap {
+    font-size: clamp(9px, 2.5vw, 11px);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .ti-progress-label {
+    letter-spacing: 0.5px;
+  }
+
+  .ti-progress-bar {
+    letter-spacing: 0.5px;
+  }
 }
 
 /* Infinite Marquee news headline banner styled similarly to 3D register button */
