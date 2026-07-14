@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import terminalLogo from '../assets/terminal-logo.png';
+import handleLogo from '../assets/handle.png';
 
 interface TerminalIntroProps {
   onComplete: () => void;
 }
 
 const BOOT_LINES = [
-  { text: 'loading CodeFury_9.0 ... OK', delay: 150 },
+  { text: 'loading codefury_9.0 ... OK', delay: 150 },
   { text: 'registration_status: OPEN', delay: 180, highlight: true },
   { text: 'boot_sequence: SUCCESS ✓', delay: 180, success: true },
 ];
@@ -26,8 +26,6 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-
-
   const handleSkip = () => {
     setIsFading(true);
     setTimeout(onComplete, 350);
@@ -42,7 +40,7 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
       // Show logo image
       await delay(200);
       setShowLogo(true);
-      await delay(500);
+      await delay(600);
 
       // Type each boot line
       for (let li = 0; li < BOOT_LINES.length; li++) {
@@ -74,14 +72,16 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
 
     run();
     return () => { active = false; };
-  }, [onComplete, isMobile]);
+  }, [onComplete]);
 
-
-  const prompt = isMobile ? '[CodeFury_9.0]$' : '[visitor@CodeFury_9.0 ~]$';
+  const prompt = isMobile ? '[Codefury_9.0]$' : '[visitor@Codefury_9.0 ~]$';
   const barFilled = Math.round(progress / 5); // out of 20 chars
 
   return (
     <div className={`ti-overlay${isFading ? ' ti-fade-out' : ''}`}>
+      {/* Scanline overlay */}
+      <div className="ti-scanlines" aria-hidden="true" />
+
       {/* 3D Cyber Terminal Window Box */}
       <div className="ti-box-window">
         {/* macOS-style header */}
@@ -97,11 +97,9 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
 
         {/* Terminal body */}
         <div className="ti-body">
-          {/* Scalable, crisp logo image from assets */}
+          {/* Main Logo Image */}
           {showLogo && (
-            <div className="ti-logo-image-wrap">
-              <img src={terminalLogo} alt="CODEFURY_9.0" className="ti-logo-image" />
-            </div>
+            <img src={handleLogo} alt="CODEFURY_9.0" className="ti-logo-img-asset" />
           )}
 
           {/* Boot lines */}
@@ -136,8 +134,6 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
               <span className="ti-progress-pct">{progress}%</span>
             </div>
           )}
-
-
         </div>
       </div>
     </div>
