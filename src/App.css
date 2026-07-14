@@ -2231,7 +2231,7 @@
   }
 
   .ti-logo-block {
-    font-size: clamp(7.5px, 2.0vw, 11px);
+    font-size: 1.4vw;
     letter-spacing: -0.2px;
     width: 100%;
     overflow-x: visible;
