@@ -292,6 +292,41 @@
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.12);
 }
 
+.hero-corner-mark.top-left {
+  top: 24px;
+  left: 24px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.hero-corner-mark.top-right {
+  top: 24px;
+  right: 24px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.hero-corner-mark.bottom-left {
+  bottom: 24px;
+  left: 24px;
+  border-right: none;
+  border-top: none;
+}
+
+.hero-corner-mark.bottom-right {
+  bottom: 24px;
+  right: 24px;
+  border-left: none;
+  border-top: none;
+}
+
+@media (max-width: 700px) {
+  .hero-corner-mark.top-left { top: 16px; left: 16px; }
+  .hero-corner-mark.top-right { top: 16px; right: 16px; }
+  .hero-corner-mark.bottom-left { bottom: 16px; left: 16px; }
+  .hero-corner-mark.bottom-right { bottom: 16px; right: 16px; }
+}
+
 .hero-bottom-section {
   width: 100%;
   padding: 100px 24px 120px 24px;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ieeeLogo from '../../assets/ieee-logo.png';
 import csLogo from '../../assets/cs-logo.png';
@@ -11,12 +11,40 @@ interface HeroProps {
 export function Hero({ isReveal = false }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
   const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 700);
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        setDimensions({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        });
+      }
+    };
+
+    updateDimensions();
+
+    const resizeObserver = new ResizeObserver(updateDimensions);
+    resizeObserver.observe(containerRef.current);
+
+    window.addEventListener('resize', updateDimensions);
+    window.addEventListener('orientationchange', updateDimensions);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateDimensions);
+      window.removeEventListener('orientationchange', updateDimensions);
+    };
   }, []);
 
   function calculateTimeLeft() {
@@ -60,7 +88,32 @@ export function Hero({ isReveal = false }: HeroProps) {
     return () => clearInterval(timer);
   }, []);
 
+  const [startAnimation, setStartAnimation] = useState(false);
+  const W = dimensions.width;
+  const H = dimensions.height;
+
+  useEffect(() => {
+    if (W > 0 && H > 0) {
+      const timer = setTimeout(() => {
+        setStartAnimation(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [W, H]);
+
   const inset = isMobile ? 16 : 24;
+
+  const dx_topLeft = W ? (W / 2 - 18) - inset : 0;
+  const dy_topLeft = H ? (H / 2 - 18) - inset : 0;
+
+  const dx_topRight = W ? -W / 2 + inset + 18 : 0;
+  const dy_topRight = H ? (H / 2 - 18) - inset : 0;
+
+  const dx_bottomLeft = W ? (W / 2 - 18) - inset : 0;
+  const dy_bottomLeft = H ? -H / 2 + inset + 18 : 0;
+
+  const dx_bottomRight = W ? -W / 2 + inset + 18 : 0;
+  const dy_bottomRight = H ? -H / 2 + inset + 18 : 0;
 
   const bracketTransition = {
     duration: 1.25,
@@ -68,23 +121,23 @@ export function Hero({ isReveal = false }: HeroProps) {
   };
 
   const topLeftVariants = {
-    hidden: { left: 'calc(50% - 18px)', top: 'calc(50% - 18px)', opacity: 0 },
-    visible: { left: `${inset}px`, top: `${inset}px`, opacity: 1 }
+    hidden: { x: dx_topLeft, y: dy_topLeft, opacity: 0 },
+    visible: { x: 0, y: 0, opacity: 1 }
   };
 
   const topRightVariants = {
-    hidden: { left: 'auto', right: 'calc(50% - 18px)', top: 'calc(50% - 18px)', opacity: 0 },
-    visible: { left: 'auto', right: `${inset}px`, top: `${inset}px`, opacity: 1 }
+    hidden: { x: dx_topRight, y: dy_topRight, opacity: 0 },
+    visible: { x: 0, y: 0, opacity: 1 }
   };
 
   const bottomLeftVariants = {
-    hidden: { left: 'calc(50% - 18px)', top: 'auto', bottom: 'calc(50% - 18px)', opacity: 0 },
-    visible: { left: `${inset}px`, top: 'auto', bottom: `${inset}px`, opacity: 1 }
+    hidden: { x: dx_bottomLeft, y: dy_bottomLeft, opacity: 0 },
+    visible: { x: 0, y: 0, opacity: 1 }
   };
 
   const bottomRightVariants = {
-    hidden: { left: 'auto', top: 'auto', right: 'calc(50% - 18px)', bottom: 'calc(50% - 18px)', opacity: 0 },
-    visible: { left: 'auto', top: 'auto', right: `${inset}px`, bottom: `${inset}px`, opacity: 1 }
+    hidden: { x: dx_bottomRight, y: dy_bottomRight, opacity: 0 },
+    visible: { x: 0, y: 0, opacity: 1 }
   };
 
   const contentMaskVariants = {
@@ -121,14 +174,14 @@ export function Hero({ isReveal = false }: HeroProps) {
       {/* First Fold Container (White Hero + Marquee Bar) */}
       <div className="hero-first-fold">
         {/* Top Part: White Textured Background */}
-        <div className={`hero-top-section ${isReveal ? 'revealed' : ''}`}>
+        <div className={`hero-top-section ${startAnimation ? 'revealed' : ''}`} ref={containerRef}>
           {/* Corner brackets */}
           <motion.div
             className="hero-corner-mark top-left"
             style={{ borderRight: 'none', borderBottom: 'none' }}
             variants={topLeftVariants}
             initial="hidden"
-            animate={isReveal ? "visible" : "hidden"}
+            animate={startAnimation ? "visible" : "hidden"}
             transition={bracketTransition}
             aria-hidden="true"
           />
@@ -137,7 +190,7 @@ export function Hero({ isReveal = false }: HeroProps) {
             style={{ borderLeft: 'none', borderBottom: 'none' }}
             variants={topRightVariants}
             initial="hidden"
-            animate={isReveal ? "visible" : "hidden"}
+            animate={startAnimation ? "visible" : "hidden"}
             transition={bracketTransition}
             aria-hidden="true"
           />
@@ -146,7 +199,7 @@ export function Hero({ isReveal = false }: HeroProps) {
             style={{ borderRight: 'none', borderTop: 'none' }}
             variants={bottomLeftVariants}
             initial="hidden"
-            animate={isReveal ? "visible" : "hidden"}
+            animate={startAnimation ? "visible" : "hidden"}
             transition={bracketTransition}
             aria-hidden="true"
           />
@@ -155,7 +208,7 @@ export function Hero({ isReveal = false }: HeroProps) {
             style={{ borderLeft: 'none', borderTop: 'none' }}
             variants={bottomRightVariants}
             initial="hidden"
-            animate={isReveal ? "visible" : "hidden"}
+            animate={startAnimation ? "visible" : "hidden"}
             transition={bracketTransition}
             aria-hidden="true"
           />
@@ -164,7 +217,7 @@ export function Hero({ isReveal = false }: HeroProps) {
             className="hero-content"
             variants={contentMaskVariants}
             initial="hidden"
-            animate={isReveal ? "visible" : "hidden"}
+            animate={startAnimation ? "visible" : "hidden"}
           >
             {/* Presenting Org */}
             <motion.div className="hero-org" variants={textItemVariants}>IEEE UVCE Computer Society Presents</motion.div>
