@@ -2,11 +2,7 @@ import { motion } from 'framer-motion';
 
 export function About() {
   return (
-    <section
-      id="about"
-      className="about-outer-wrap"
-      style={{ minHeight: '80vh' }}
-    >
+    <section id="about" className="about-outer-wrap">
       {/* SVG Filter for generating the realistic, organic torn paper edge */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
         <defs>

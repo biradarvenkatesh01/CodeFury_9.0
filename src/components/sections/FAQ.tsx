@@ -98,7 +98,7 @@ function FaqItemComponent({ item, index }: { item: FaqItem; index: number }) {
 
 export function FAQ() {
   return (
-    <section id="faq" className="faq-outer-wrap-new" style={{ minHeight: '60vh' }}>
+    <section id="faq" className="faq-outer-wrap-new">
       <div className="section-container">
         <motion.div
           className="section-header-block"

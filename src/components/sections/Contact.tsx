@@ -51,7 +51,7 @@ const SOCIAL_LINKS = [
 
 export function Contact() {
   return (
-    <section id="contact" className="contact-outer-wrap-new" style={{ minHeight: '60vh' }}>
+    <section id="contact" className="contact-outer-wrap-new">
       <div className="section-container">
         <motion.div
           className="section-header-block"

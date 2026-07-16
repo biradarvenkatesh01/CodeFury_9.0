@@ -81,7 +81,7 @@ const themeMap = {
 
 export function PastWinners() {
   return (
-    <section id="past" className="past-winners-outer-wrap" style={{ minHeight: '60vh' }}>
+    <section id="past" className="past-winners-outer-wrap">
       <div className="section-container">
         <motion.div
           className="section-header-block"

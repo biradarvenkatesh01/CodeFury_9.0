@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export function Tracks() {
   return (
-    <section id="tracks" className="tracks-outer-wrap" style={{ minHeight: '60vh' }}>
+    <section id="tracks" className="tracks-outer-wrap">
       <div className="section-container">
         <motion.div
           className="section-header-block"

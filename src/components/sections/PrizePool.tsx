@@ -77,7 +77,7 @@ const PRIZE_CARDS = [
 
 export function PrizePool() {
   return (
-    <section id="prizes" className="prizes-outer-wrap" style={{ minHeight: '70vh' }}>
+    <section id="prizes" className="prizes-outer-wrap">
       
       {/* Infinite Marquee Bar */}
       <div className="marquee-bar-container">
