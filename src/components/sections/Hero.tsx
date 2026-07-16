@@ -8,7 +8,7 @@ interface HeroProps {
   isReveal?: boolean;
 }
 
-export function Hero({ isReveal = false }: HeroProps) {
+export function Hero({ isReveal = false, onExplore }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -259,7 +259,8 @@ export function Hero({ isReveal = false }: HeroProps) {
             </motion.div>
 
             {/* Action Buttons */}
-            <motion.div className="hero-actions" variants={textItemVariants}>
+            <motion.div className="hero-actions" variants={textItemVariants} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', marginTop: '8px' }}>
+              {/* Commented out register now button
               <a href="#register" className="btn-register-3d" aria-label="Register Now">
                 <div className="btn-register-3d-wrapper">
                   <svg
@@ -269,7 +270,6 @@ export function Hero({ isReveal = false }: HeroProps) {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    {/* Top Face (Light Blue) */}
                     <polygon
                       points="2,12 14,2 158,2 146,12"
                       fill="#3b82f6"
@@ -277,8 +277,6 @@ export function Hero({ isReveal = false }: HeroProps) {
                       strokeWidth="2.5"
                       strokeLinejoin="round"
                     />
-                    
-                    {/* Right Face (Medium Blue) */}
                     <polygon
                       points="146,12 158,2 158,42 146,52"
                       fill="#1d4ed8"
@@ -286,8 +284,6 @@ export function Hero({ isReveal = false }: HeroProps) {
                       strokeWidth="2.5"
                       strokeLinejoin="round"
                     />
-                    
-                    {/* Front Face (White) */}
                     <polygon
                       points="2,12 146,12 146,52 2,52"
                       fill="#ffffff"
@@ -295,8 +291,6 @@ export function Hero({ isReveal = false }: HeroProps) {
                       strokeWidth="2.5"
                       strokeLinejoin="round"
                     />
-
-                    {/* Text centered on the front face */}
                     <text
                       x="74"
                       y="32"
@@ -312,6 +306,25 @@ export function Hero({ isReveal = false }: HeroProps) {
                   </svg>
                 </div>
               </a>
+              */}
+
+              {/* Blinking Status Box */}
+              <div className="hero-status-box">
+                <span className="status-dot"></span>
+                <span className="status-text">STAY TUNED · REGISTRATIONS STARTING SOON!</span>
+              </div>
+
+              {/* Explore/Scroll Arrow Button */}
+              <button 
+                className="btn-explore-scroll" 
+                onClick={() => onExplore('#about')} 
+                aria-label="Explore More"
+              >
+                <span className="explore-text">EXPLORE CODEFURY</span>
+                <svg className="explore-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <path d="M12 5v14M19 12l-7 7-7-7" />
+                </svg>
+              </button>
             </motion.div>
           </motion.div>
       </div>
@@ -321,10 +334,10 @@ export function Hero({ isReveal = false }: HeroProps) {
         <div className="marquee-bar">
           <div className="marquee-track">
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`a-${i}`}>REGISTRATIONS OPEN! &nbsp;✦&nbsp; </span>
+              <span key={`a-${i}`}>REGISTRATIONS STARTING SOON! &nbsp;✦&nbsp; </span>
             ))}
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`b-${i}`}>REGISTRATIONS OPEN! &nbsp;✦&nbsp; </span>
+              <span key={`b-${i}`}>REGISTRATIONS STARTING SOON! &nbsp;✦&nbsp; </span>
             ))}
           </div>
         </div>

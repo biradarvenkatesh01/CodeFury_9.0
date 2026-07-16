@@ -7,7 +7,7 @@ interface TerminalIntroProps {
 
 const BOOT_LINES = [
   { text: 'loading codefury_9.0 ... OK', delay: 150 },
-  { text: 'registration_status: OPEN', delay: 180, highlight: true },
+  { text: 'registration_status: SOON', delay: 180, highlight: true },
   { text: 'boot_sequence: SUCCESS ✓', delay: 180, success: true },
 ];
 
