@@ -14,7 +14,6 @@ const GALLERY_IMAGES = [img1, img2, img3, img4, img5, img6, img7, img8];
 export function CodeFuryWall() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [rotation, setRotation] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const autoRotateRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -26,20 +25,16 @@ export function CodeFuryWall() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Sync auto rotate
+  // Sync auto rotate (unconditional, infinite)
   useEffect(() => {
-    if (isPaused) {
-      if (autoRotateRef.current) clearInterval(autoRotateRef.current);
-      return;
-    }
     autoRotateRef.current = setInterval(() => {
       setRotation(prev => prev - 45);
-    }, 3500);
+    }, 3000);
 
     return () => {
       if (autoRotateRef.current) clearInterval(autoRotateRef.current);
     };
-  }, [isPaused]);
+  }, []);
 
   // Escape key close & keyboard arrows listener
   useEffect(() => {
@@ -85,11 +80,7 @@ export function CodeFuryWall() {
       </div>
 
       {/* 3D Carousel Stage */}
-      <div
-        className="wall-3d-stage"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
+      <div className="wall-3d-stage">
         <motion.div
           className="wall-3d-track"
           animate={{ rotateY: rotation }}
