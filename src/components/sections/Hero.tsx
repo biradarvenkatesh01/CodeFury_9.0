@@ -311,7 +311,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
               {/* Blinking Status Box */}
               <div className="hero-status-box">
                 <span className="status-dot"></span>
-                <span className="status-text">STAY TUNED · REGISTRATIONS STARTING SOON!</span>
+                <span className="status-text">STAY TUNED · REGISTRATIONS OPENING SOON!</span>
               </div>
 
               {/* Explore/Scroll Arrow Button */}
@@ -334,10 +334,10 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
         <div className="marquee-bar">
           <div className="marquee-track">
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`a-${i}`}>REGISTRATIONS STARTING SOON! &nbsp;✦&nbsp; </span>
+              <span key={`a-${i}`}>REGISTRATIONS OPENING SOON! &nbsp;✦&nbsp; </span>
             ))}
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`b-${i}`}>REGISTRATIONS STARTING SOON! &nbsp;✦&nbsp; </span>
+              <span key={`b-${i}`}>REGISTRATIONS OPENING SOON! &nbsp;✦&nbsp; </span>
             ))}
           </div>
         </div>
