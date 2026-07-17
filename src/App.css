@@ -789,14 +789,10 @@
   bottom: -24px; /* Sits slightly below the white background boundary to warp the bottom edge */
   left: -2vw;
   width: 104vw;
-  background: 
-    radial-gradient(circle at center, rgba(99, 102, 241, 0.09) 0%, rgba(255, 255, 255, 0) 70%),
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    url('./assets/hero-bg-white.png');
-  background-size: 100% 100%, 24px 24px, 24px 24px, auto;
-  background-repeat: no-repeat, repeat, repeat, repeat;
-  background-position: center center, center top, center top, center top;
+  background-image: url('./assets/hero-bg-white.png');
+  background-repeat: repeat;
+  background-size: auto;
+  background-position: center top;
   filter: url(#torn-paper-filter) drop-shadow(0 0 10px rgba(0, 0, 0, 0.15));
   z-index: 1;
   pointer-events: none;
