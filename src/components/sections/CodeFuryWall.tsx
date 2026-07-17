@@ -1,22 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import img1 from '../../assets/img1.png';
-import img2 from '../../assets/img2.png';
-import img3 from '../../assets/img3.png';
-import img4 from '../../assets/img4.png';
-import img5 from '../../assets/img5.png';
-import img6 from '../../assets/img6.png';
-import img7 from '../../assets/img7.png';
-import img8 from '../../assets/img8.png';
+import img1 from '../../assets/img1.jpeg';
+import img2 from '../../assets/img2.jpeg';
+import img3 from '../../assets/img3.jpeg';
+import img4 from '../../assets/img4.jpeg';
+import img5 from '../../assets/img5.jpeg';
+import img6 from '../../assets/img6.jpeg';
 
-const GALLERY_IMAGES = [img1, img2, img3, img4, img5, img6, img7, img8];
+const GALLERY_IMAGES = [img1, img2, img3, img4, img5, img6];
 
 export function CodeFuryWall() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [rotation, setRotation] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const autoRotateRef = useRef<NodeJS.Timeout | null>(null);
+  const autoRotateRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Sync mobile layout flag
   useEffect(() => {
@@ -33,7 +31,7 @@ export function CodeFuryWall() {
       return;
     }
     autoRotateRef.current = setInterval(() => {
-      setRotation(prev => prev - 45);
+      setRotation(prev => prev - 60);
     }, 2000);
 
     return () => {
@@ -47,9 +45,9 @@ export function CodeFuryWall() {
       if (e.key === 'Escape') {
         setSelectedImg(null);
       } else if (e.key === 'ArrowLeft') {
-        setRotation(prev => prev + 45);
+        setRotation(prev => prev + 60);
       } else if (e.key === 'ArrowRight') {
-        setRotation(prev => prev - 45);
+        setRotation(prev => prev - 60);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -59,11 +57,11 @@ export function CodeFuryWall() {
   const radius = isMobile ? 280 : 420;
 
   const handlePrev = () => {
-    setRotation(prev => prev + 45);
+    setRotation(prev => prev + 60);
   };
 
   const handleNext = () => {
-    setRotation(prev => prev - 45);
+    setRotation(prev => prev - 60);
   };
 
   return (
@@ -92,7 +90,7 @@ export function CodeFuryWall() {
           transition={{ type: 'spring', damping: 26, stiffness: 100 }}
         >
           {GALLERY_IMAGES.map((img, i) => {
-            const angle = i * 45;
+            const angle = i * 60;
             return (
               <div
                 key={`photo3d-${i}`}
