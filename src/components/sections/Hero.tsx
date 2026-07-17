@@ -117,7 +117,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
 
   const bracketTransition = {
     duration: 1.25,
-    ease: [0.16, 1, 0.3, 1], // easeOutExpo
+    ease: [0.16, 1, 0.3, 1] as const, // easeOutExpo
   };
 
   const topLeftVariants = {
@@ -150,7 +150,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
       opacity: 1,
       transition: {
         duration: 1.25,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
         staggerChildren: 0.08,
         delayChildren: 0.55
       }
@@ -162,7 +162,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.65, ease: "easeOut" }
+      transition: { duration: 0.65, ease: "easeOut" as const }
     }
   };
 
@@ -317,7 +317,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
               {/* Explore/Scroll Arrow Button */}
               <button 
                 className="btn-explore-scroll" 
-                onClick={() => onExplore('#about')} 
+                onClick={() => onExplore?.('#about')} 
                 aria-label="Explore More"
               >
                 <span className="explore-text">EXPLORE CODEFURY</span>
