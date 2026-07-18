@@ -45,10 +45,10 @@ export function About() {
               <h3 className="card-3d-title">IEEE UVCE & CS</h3>
               <div className="card-3d-body">
                 <p>
-                  IEEE UVCE is the student branch of IEEE at the University of Visvesvaraya College of Engineering, operating under the IEEE Bangalore Section. Established in 2001, it has grown into a vibrant platform for students to explore innovation, research, and leadership through national and global IEEE events, technical interest groups, and collaborative initiatives. The branch actively promotes technical excellence, professional development, and community engagement, shaping the next generation of engineers.
+                  IEEE UVCE is the student branch of IEEE at the University of Visvesvaraya College of Engineering, operating under the IEEE Bangalore Section. Established in 2001, it has grown into a vibrant platform for students to explore innovation, research and leadership through national and global IEEE events, technical interest groups and collaborative initiatives. The branch actively promotes technical excellence, professional development and community engagement, shaping the next generation of engineers.
                 </p>
                 <p>
-                  The IEEE UVCE Computer Society is a dedicated technical chapter focused on fostering a culture of innovation and problem-solving. It regularly conducts coding competitions, hackathons, workshops, and tech talks addressing real-world challenges. With a strong emphasis on skill-building and peer learning, the society empowers students to grow into competent and impactful tech professionals.
+                  The IEEE UVCE Computer Society is a dedicated technical chapter focused on fostering a culture of innovation and problem-solving. It regularly conducts coding competitions, hackathons, workshops and tech talks addressing real-world challenges. With a strong emphasis on skill-building and peer learning, the society empowers students to grow into competent and impactful tech professionals.
                 </p>
               </div>
               <div className="card-3d-metrics">
