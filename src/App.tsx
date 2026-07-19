@@ -76,7 +76,7 @@ export function App() {
             <CodeFuryWall />
             <PastWinners />
             {/* <Sponsors /> */}
-            <Game /> 
+            {/* <Game /> */}
             <FAQ />
             <Contact />
           </main>
