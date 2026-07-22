@@ -29,7 +29,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: 'How do I submit my project?',
-    a: "Project submission details will be shared with qualified participants after the preliminary round. Typically, you'll need to submit your code repository, demo video, and project documentation.",
+    a: "Project submission details will be shared with participants after the preliminary round. Typically, you'll need to submit your code repository, demo video, and project documentation.",
   },
   {
     q: 'Is this completely an online hackathon?',
