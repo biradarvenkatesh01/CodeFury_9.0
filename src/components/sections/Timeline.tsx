@@ -14,23 +14,21 @@ interface TimelineEvent {
 }
 
 const TIMELINE_EVENTS: TimelineEvent[] = [
-  /*
+  
   {
     date: 'August 1, 2026',
     title: 'Registration Opens',
     description: 'Kickstart your CodeFury journey, form your dream team and register!',
     colorTheme: 'green',
   },
-  */
-  /*
-  {
-    date: '12th and 13th August 2026',
-    title: 'Workshop - "Git Ready, Set, Code"',
-    description: 'A Pre-Codefury Web Dev Workshop.',
-    link: {
-      text: 'Register for Workshop',
-      url: 'http://tinyurl.com/codefuryWeb',
-    },
+ {
+    date: '11th and 12th August 2026',
+    title: 'Pre-CodeFury Workshop',
+    description: 'Offline hands-on workshop to get you hackathon-ready.',
+    // link: {
+    //   text: 'Register for Workshop',
+    //   url: 'http://tinyurl.com/codefuryWeb',
+    // },
     colorTheme: 'yellow',
   },
   {
@@ -43,10 +41,9 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     date: 'August 19, 2026',
     title: 'Registration Closes',
     description: 'Final call! Register before the portal closes.',
-    note: '* Registrations extended to August 20th, 2026, 4:00 PM',
+    // note: '* Registrations extended to August 20th, 2026, 4:00 PM',
     colorTheme: 'rose',
   },
-  */
   {
     date: 'August 21-22, 2026',
     title: 'CodeFury Round 1',
