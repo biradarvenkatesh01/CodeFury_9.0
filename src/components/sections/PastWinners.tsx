@@ -84,10 +84,7 @@ const WINNERS: Winner[] = [
     team: 'A.I.M',
     college: 'KLS Gogte Institute Of Technology',
     tech: ['Next.js', 'React', 'Tailwind', 'Vercel'],
-     links: [
-     
-      { label: 'Live Demo', url: 'https://agriguru-frontend.onrender.com' },
-    ],
+     links: [],
     colorTheme: 'consolation',
   },
   {
