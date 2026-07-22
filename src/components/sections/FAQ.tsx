@@ -37,7 +37,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: 'What happens after the 24\u2011hour coding period?',
-    a: 'After the coding period ends, teams will present their projects to our panel of judges. Winners will be announced within 24 hours of submission deadline, followed by prize distribution.',
+    a: 'After the coding period ends, shortlisted teams will present their projects to our panel of judges. Winners will be announced within 24 hours of submission deadline, followed by prize distribution.',
   },
 ];
 
