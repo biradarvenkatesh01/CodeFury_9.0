@@ -36,7 +36,7 @@ const FAQS: FaqItem[] = [
     a: 'Yes, CodeFury 9.0 is a fully online hackathon. You can participate from anywhere in the world. All interactions, presentations, and judging will happen virtually.',
   },
   {
-    q: 'What happens after the 24-hour coding period?',
+    q: 'What happens after the 24\u2011hour coding period?',
     a: 'After the coding period ends, teams will present their projects to our panel of judges. Winners will be announced within 24 hours of submission deadline, followed by prize distribution.',
   },
 ];

@@ -78,7 +78,7 @@ export function About() {
               <h3 className="card-3d-title">About CodeFury v9.0</h3>
               <div className="card-3d-body">
                 <p>
-                  CodeFury is our flagship Annual National-Level Hackathon that brings together the brightest minds in programming and innovation. This 24-hour intensive coding marathon challenges participants to build revolutionary solutions to real-world problems.
+                  CodeFury is our flagship Annual National-Level Hackathon that brings together the brightest minds in programming and innovation. This <span style={{ whiteSpace: 'nowrap' }}>24-hour</span> intensive coding marathon challenges participants to build revolutionary solutions to real-world problems.
                 </p>
                 <p>
                   Open to students from all colleges and universities, CodeFury has grown to become one of the most prestigious hackathons in the region, attracting participants from across the country.

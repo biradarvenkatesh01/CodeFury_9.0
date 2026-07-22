@@ -50,7 +50,7 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     date: 'August 21-22, 2026',
     title: 'CodeFury Round 1',
-    description: 'The 24-hour coding showdown begins.',
+    description: 'The 24\u2011hour coding showdown begins.',
     badge: '[21st 6pm to 22nd 6pm]',
     colorTheme: 'violet',
   },
