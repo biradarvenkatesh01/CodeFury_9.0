@@ -26,8 +26,6 @@ export function Tracks() {
             <div className="card-3d-top"></div>
             <div className="card-3d-right"></div>
             <div className="card-3d-front">
-              <h3 className="card-3d-title">Rules &amp; Deliverables</h3>
-              
               <div className="card-3d-body">
                 <p className="tracks-paragraph">
                   Participants will be presented with <span className="highlight-green">Three distinct themes</span>, each accompanied by a unique problem statement. These themes and their respective challenges will be officially announced on the <span className="highlight-green">first day of the event</span>.
