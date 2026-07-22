@@ -532,13 +532,21 @@ font-family: 'Orbitron', sans-serif;
 }
 
 .hero-org {
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2.5px;
+  letter-spacing: 3.5px;
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   text-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .hero-org {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    margin-bottom: 12px;
+  }
 }
 
 .hero-category {
