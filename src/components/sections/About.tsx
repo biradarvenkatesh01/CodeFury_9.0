@@ -86,7 +86,7 @@ export function About() {
               </div>
               <div className="card-3d-metrics">
                 <div className="card-metric-badge">
-                  <span className="card-metric-val">500+</span>
+                  <span className="card-metric-val">600+</span>
                   <span className="card-metric-lbl">Participants</span>
                 </div>
                 <div className="card-metric-badge">
