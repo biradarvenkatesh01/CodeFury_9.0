@@ -504,7 +504,8 @@
 }
 
 .hero-title {
-  font-family: var(--font-heading);
+  /* font-family: var(--font-heading); */
+  font-family: Arial, sans-serif;
   font-size: 100px;
   font-weight: 900;
   line-height: 1.1;
