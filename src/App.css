@@ -883,7 +883,7 @@
   z-index: 2;
 }
 
-/* .card-3d-title {
+.card-3d-title {
   font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 800;
@@ -893,7 +893,7 @@
   letter-spacing: 0.5px;
   border-bottom: 2px dashed rgba(0, 0, 0, 0.15);
   padding-bottom: 12px;
-} */
+}
 
 .card-3d-body {
   font-size: 15px;
