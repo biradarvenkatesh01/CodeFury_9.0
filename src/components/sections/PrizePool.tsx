@@ -135,9 +135,9 @@ export function PrizePool() {
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
         >
-          <p className="consolation-text">
-            Additional cash prizes worth <strong>₹10,000</strong> for Special Track Winners &amp; Consolation Prizes!
-          </p>
+         <p className="consolation-text">
+  Additional cash prizes worth <strong>₹10,000</strong> for Special Track Winners &amp; Consolation Prizes + Participation Certificates for All Registered Participants.
+</p>
         </motion.div>
       </div>
     </section>
