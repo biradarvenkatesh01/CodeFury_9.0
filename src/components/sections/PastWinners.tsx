@@ -72,7 +72,7 @@ const WINNERS: Winner[] = [
     college: 'VidyaVardhaka College of Engineering',
     tech: ['React', 'Tailwind', 'Node.js', 'Render'],
     links: [
-      { label: 'GitHub', url: 'https://github.com/TeamCosmicSentinal/Farmland' },
+     
       { label: 'Live Demo', url: 'https://agriguru-frontend.onrender.com' },
     ],
     colorTheme: 'consolation',
@@ -84,10 +84,6 @@ const WINNERS: Winner[] = [
     team: 'A.I.M',
     college: 'KLS Gogte Institute Of Technology',
     tech: ['Next.js', 'React', 'Tailwind', 'Vercel'],
-    links: [
-      { label: 'GitHub', url: 'https://github.com/Victowolf/AgriConnect-A.I.M-' },
-      { label: 'Live Demo', url: 'https://agri-connect-tan.vercel.app/' },
-    ],
     colorTheme: 'consolation',
   },
   {
