@@ -84,7 +84,9 @@ const WINNERS: Winner[] = [
     team: 'A.I.M',
     college: 'KLS Gogte Institute Of Technology',
     tech: ['Next.js', 'React', 'Tailwind', 'Vercel'],
-     links: [],
+     links: [
+        { label: 'GitHub', url: 'https://github.com/Victowolf/AgriConnect' },
+     ],
     colorTheme: 'consolation',
   },
   {
