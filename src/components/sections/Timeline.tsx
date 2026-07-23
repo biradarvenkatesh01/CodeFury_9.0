@@ -16,7 +16,7 @@ interface TimelineEvent {
 const TIMELINE_EVENTS: TimelineEvent[] = [
   
   {
-    date: 'August 1, 2026',
+    date: 'August 25th, 2026',
     title: 'Registration Opens',
     description: 'Kickstart your CodeFury journey, form your dream team and register!',
     colorTheme: 'green',
