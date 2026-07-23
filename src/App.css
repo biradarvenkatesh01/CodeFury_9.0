@@ -257,7 +257,6 @@
 .hero-status-box {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 12px;
   background: rgba(249, 115, 22, 0.08); /* warm soft orange tint */
   border: 2px solid #000000;
@@ -272,11 +271,6 @@
   text-transform: uppercase;
   box-sizing: border-box;
   max-width: 100%;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.hero-status-box .status-text {
   text-align: center;
 }
 
@@ -300,7 +294,6 @@
     padding: 20px 18px;
     font-size: 14px;
     max-width: 90%;
-    margin: 0 auto;
   }
 }
 

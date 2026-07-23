@@ -259,7 +259,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
             </motion.div>
 
             {/* Action Buttons */}
-            <motion.div className="hero-actions" variants={textItemVariants} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '20px', marginTop: '8px' }}>
+            <motion.div className="hero-actions" variants={textItemVariants} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', marginTop: '8px' }}>
               {/* Commented out register now button
               <a href="#register" className="btn-register-3d" aria-label="Register Now">
                 <div className="btn-register-3d-wrapper">
