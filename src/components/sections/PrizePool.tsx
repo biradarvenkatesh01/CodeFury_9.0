@@ -53,7 +53,7 @@ const PRIZE_CARDS = [
     badgeClass: 'badge-gold',
     trophyColor: '#f59e0b',
     rank: '1st Place',
-    amount: '₹25,000',
+    amount: '₹20,000',
     label: 'Winner',
     amountClass: 'amount-gold',
     labelClass: 'label-gold',
@@ -136,7 +136,7 @@ export function PrizePool() {
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
         >
          <p className="consolation-text">
-  Additional cash prizes worth <strong>₹10,000</strong> for Special Track Winners &amp; Consolation Prizes + Participation Certificates for All Registered Participants.
+  Additional cash prizes worth <strong>₹15,000</strong> for Special Track Winners &amp; Consolation Prizes + Participation Certificates for All Registered Participants.
 </p>
         </motion.div>
       </div>
