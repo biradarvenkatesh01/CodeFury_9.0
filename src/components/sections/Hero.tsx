@@ -311,7 +311,7 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
               {/* Blinking Status Box */}
               <div className="hero-status-box">
                 <span className="status-dot"></span>
-                <span className="status-text">STAY TUNED · REGISTRATIONS OPENING SOON!</span>
+                <span className="status-text">REGISTRATIONS OPENING SOON! · STAY TUNED</span>
               </div>
 
               {/* Explore/Scroll Arrow Button */}
