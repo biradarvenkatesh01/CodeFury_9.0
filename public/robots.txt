@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://codefury.live/sitemap.xml
+Sitemap: https://www.codefury.live/sitemap.xml
