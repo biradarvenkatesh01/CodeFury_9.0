@@ -11,6 +11,7 @@ const DESKTOP_NAV_ITEMS: NavItem[] = [
   { label: 'About Us', href: '#about' },
   { label: 'Tracks', href: '#tracks' },
   { label: 'Timeline', href: '#timeline' },
+  { label: 'Sponsors', href: '#sponsors' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -21,7 +22,7 @@ const DROPDOWN_NAV_ITEMS: NavItem[] = [
   { label: 'Timeline', href: '#timeline' },
   { label: 'CodeFury Wall', href: '#wall' },
   { label: 'Past Winners', href: '#past' },
-  // { label: 'Our Sponsors', href: '#sponsors' },
+  { label: 'Our Sponsors', href: '#sponsors' },
   // { label: 'Stick man (Mini Game)', href: '#game' },
   { label: 'FAQs', href: '#faq' },
   { label: 'Contact', href: '#contact' },

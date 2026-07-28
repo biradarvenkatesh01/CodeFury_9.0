@@ -53,7 +53,7 @@ export function Footer() {
               <li><a href="#tracks">Tracks</a></li>
               <li><a href="#prizes">Prize Pool</a></li>
               <li><a href="#timeline">Timeline</a></li>
-              {/* <li><a href="#sponsors">Sponsors</a></li> */}
+              <li><a href="#sponsors">Sponsors</a></li>
             </ul>
           </div>
           <div className="footer-links-group">

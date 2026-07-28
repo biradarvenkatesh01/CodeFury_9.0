@@ -297,6 +297,39 @@
   }
 }
 
+/* Neobrutalist Register Now button */
+.btn-register-now {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  border-radius: 6px;
+  padding: 14px 36px;
+  color: #000000;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 6px 6px 0px #3b82f6;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.btn-register-now:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px #3b82f6;
+  background: #ffffff;
+}
+
+.btn-register-now:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px #3b82f6;
+}
+
 /* Neobrutalist explore/scroll-down arrow button */
 .btn-explore-scroll {
   display: inline-flex;
@@ -2464,6 +2497,10 @@ font-family: 'Orbitron', sans-serif;
   animation: marquee-ltr-speed 22s linear infinite;
 }
 
+.marquee-track-rtl {
+  animation: marquee-rtl-speed 22s linear infinite;
+}
+
 .marquee-track span {
   font-family: var(--font-mono);
   font-size: 20px;
@@ -2481,6 +2518,15 @@ font-family: 'Orbitron', sans-serif;
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@keyframes marquee-rtl-speed {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
@@ -2994,10 +3040,14 @@ font-family: 'Orbitron', sans-serif;
 
 .sponsors-outer-wrap-new {
   width: 100%;
-  background-image: url('./assets/hero-bg-white.png');
-  background-repeat: repeat;
-  background-size: auto;
-  background-position: center top;
+  background: 
+    radial-gradient(circle at center, rgba(99, 102, 241, 0.08) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    url('./assets/hero-bg-white.png');
+  background-size: 100% 100%, 24px 24px, 24px 24px, auto;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-position: center center, center top, center top, center top;
   position: relative;
   z-index: 10;
 }
@@ -3039,6 +3089,20 @@ font-family: 'Orbitron', sans-serif;
   margin-bottom: 20px;
   padding-bottom: 8px;
   border-bottom: 1.5px dashed rgba(0, 0, 0, 0.15);
+}
+
+.platform-tier-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #000000;
+  margin-bottom: 24px;
+  border-bottom: none;
 }
 
 .sponsor-tier-gem {

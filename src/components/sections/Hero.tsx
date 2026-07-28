@@ -260,59 +260,16 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
 
             {/* Action Buttons */}
             <motion.div className="hero-actions" variants={textItemVariants} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', marginTop: '8px' }}>
-              {/* Commented out register now button
-              <a href="#register" className="btn-register-3d" aria-label="Register Now">
-                <div className="btn-register-3d-wrapper">
-                  <svg
-                    width="160"
-                    height="54"
-                    viewBox="0 0 160 54"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <polygon
-                      points="2,12 14,2 158,2 146,12"
-                      fill="#3b82f6"
-                      stroke="#000000"
-                      strokeWidth="2.5"
-                      strokeLinejoin="round"
-                    />
-                    <polygon
-                      points="146,12 158,2 158,42 146,52"
-                      fill="#1d4ed8"
-                      stroke="#000000"
-                      strokeWidth="2.5"
-                      strokeLinejoin="round"
-                    />
-                    <polygon
-                      points="2,12 146,12 146,52 2,52"
-                      fill="#ffffff"
-                      stroke="#000000"
-                      strokeWidth="2.5"
-                      strokeLinejoin="round"
-                    />
-                    <text
-                      x="74"
-                      y="32"
-                      fill="#000000"
-                      fontSize="13"
-                      fontWeight="bold"
-                      textAnchor="middle"
-                      fontFamily="var(--font-mono)"
-                      dominantBaseline="central"
-                    >
-                      REGISTER NOW
-                    </text>
-                  </svg>
-                </div>
+              {/* Register Now Button */}
+              <a 
+                href="https://unstop.com/o/MbvFpz0?utm_medium=Share&utm_source=ieeecom4643&utm_campaign=Online_coding_challenge" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-register-now" 
+                aria-label="Register Now"
+              >
+                REGISTER NOW
               </a>
-              */}
-
-              {/* Blinking Status Box */}
-              <div className="hero-status-box">
-                <span className="status-dot"></span>
-                <span className="status-text">REGISTRATIONS OPENING SOON! · STAY TUNED</span>
-              </div>
 
               {/* Explore/Scroll Arrow Button */}
               <button 
@@ -332,12 +289,12 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
       {/* Infinite Marquee Bar located exactly at the boundary */}
       <div className="marquee-bar-container">
         <div className="marquee-bar">
-          <div className="marquee-track">
+          <div className="marquee-track marquee-track-rtl">
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`a-${i}`}>REGISTRATIONS OPENING SOON! &nbsp;✦&nbsp; </span>
+              <span key={`a-${i}`}>REGISTRATIONS OPEN! &nbsp;✦&nbsp; </span>
             ))}
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`b-${i}`}>REGISTRATIONS OPENING SOON! &nbsp;✦&nbsp; </span>
+              <span key={`b-${i}`}>REGISTRATIONS OPEN! &nbsp;✦&nbsp; </span>
             ))}
           </div>
         </div>

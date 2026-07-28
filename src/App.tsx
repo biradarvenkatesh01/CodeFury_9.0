@@ -9,7 +9,7 @@ import { PrizePool } from './components/sections/PrizePool';
 import { Timeline } from './components/sections/Timeline';
 import { CodeFuryWall } from './components/sections/CodeFuryWall';
 import { PastWinners } from './components/sections/PastWinners';
-// import { Sponsors } from './components/sections/Sponsors';
+import { Sponsors } from './components/sections/Sponsors';
 // import { Game } from './components/sections/Game';
 import { FAQ } from './components/sections/FAQ';
 import { Contact } from './components/sections/Contact';
@@ -75,7 +75,7 @@ export function App() {
             <Timeline />
             <CodeFuryWall />
             <PastWinners />
-            {/* <Sponsors /> */}
+            <Sponsors />
             {/* <Game /> */}
             <FAQ />
             <Contact />
