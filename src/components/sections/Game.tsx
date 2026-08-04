@@ -25,11 +25,24 @@ export function Game() {
     const restartBtn = restartRef.current!;
     const jumpBtn    = jumpBtnRef.current;
 
-    // ── Anti-Cheat: Security Salt & Checksum Generator ──────────────────────
+    // ── Anti-Cheat Layer 1: DevTools Keyboard Shortcut Blocker ─────────────
+    const preventDevToolsHotkeys = (e: KeyboardEvent) => {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+        (e.ctrlKey && (e.key === 'u' || e.key === 'U'))
+      ) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('keydown', preventDevToolsHotkeys);
+
+    // ── Anti-Cheat Layer 2: Device-Fingerprinted Salted Storage ───────────
     const SECURE_SALT = 'CF9_GAME_SECURE_SALT_2026_x89a#';
+    const DEVICE_FINGERPRINT = typeof window !== 'undefined' ? (window.navigator.userAgent + screen.width) : 'CF9';
 
     function computeChecksum(val: number): string {
-      const rawStr = `${val}:${SECURE_SALT}:${val * 10007 + 91823}`;
+      const rawStr = `${val}:${SECURE_SALT}:${DEVICE_FINGERPRINT}:${val * 10007 + 91823}`;
       let hash = 0;
       for (let i = 0; i < rawStr.length; i++) {
         hash = (hash << 5) - hash + rawStr.charCodeAt(i);
@@ -50,7 +63,6 @@ export function Game() {
         if (!raw) return 0;
         const { s, c } = JSON.parse(atob(raw));
         if (typeof s !== 'number' || computeChecksum(s) !== c || s > 1000) {
-          // Tampered score detected in Session Storage
           sessionStorage.removeItem('codefury_game_highscore_v2');
           return 0;
         }
@@ -60,22 +72,55 @@ export function Game() {
       }
     }
 
-    let score = 0;
-    let highScore = loadSecureHighScore();
+    // ── Anti-Cheat Layer 3: In-Memory XOR Masking & Encrypted Variables ────
+    let _sMask = Math.floor(Math.random() * 0xffff) + 1;
+    let _sEnc = 0 ^ _sMask;
+    let _hsMask = Math.floor(Math.random() * 0xffff) + 1;
+    let _hsEnc = loadSecureHighScore() ^ _hsMask;
 
-    function updateSecurityUI() {
-      enforceScoreBarDOM();
+    function getScore(): number {
+      return _sEnc ^ _sMask;
     }
 
-    function checkAndUpdateHighScore(currentScore: number) {
-      if (currentScore > highScore) {
-        highScore = currentScore;
-        saveSecureHighScore(highScore);
-        updateSecurityUI();
+    function setScore(val: number) {
+      _sMask = Math.floor(Math.random() * 0xffff) + 1;
+      _sEnc = val ^ _sMask;
+    }
+
+    function getHighScore(): number {
+      return _hsEnc ^ _hsMask;
+    }
+
+    function setHighScore(val: number) {
+      _hsMask = Math.floor(Math.random() * 0xffff) + 1;
+      _hsEnc = val ^ _hsMask;
+    }
+
+    // ── Anti-Cheat Layer 4: Physics & Timing Rate Limiter ───────────────────
+    let lastJumpTimestamp = Date.now();
+
+    function addScorePoints(pts: number): boolean {
+      const now = Date.now();
+      const diff = now - lastJumpTimestamp;
+      // Single jump takes > 700ms. If points > 2 or diff < 700ms, flag as cheated!
+      if (pts > 2 || (diff < 700 && getScore() > 0)) {
+        setScore(0);
+        enforceScoreBarDOM();
+        return false;
       }
+      lastJumpTimestamp = now;
+      const newScore = getScore() + pts;
+      setScore(newScore);
+
+      if (newScore > getHighScore()) {
+        setHighScore(newScore);
+        saveSecureHighScore(newScore);
+      }
+      enforceScoreBarDOM();
+      return true;
     }
 
-    // ── Anti-Cheat: Deep DOM MutationObserver (prevents DevTools tag/text edit) ──
+    // ── Anti-Cheat Layer 5: Deep Observer & Polling DOM Audit ───────────────
     let isUpdatingDOM = false;
 
     function enforceScoreBarDOM() {
@@ -84,25 +129,26 @@ export function Game() {
 
       const currentScoreSpan = scoreBarEl.querySelector('.score-stat-card:not(.highlight) .stat-val');
       const currentHighSpan  = scoreBarEl.querySelector('.score-stat-card.highlight .stat-val');
+      const curScore = getScore();
+      const curHigh  = getHighScore();
 
       if (!currentScoreSpan || !currentHighSpan || currentScoreSpan.tagName !== 'SPAN' || currentHighSpan.tagName !== 'SPAN') {
-        // Tag tampered (e.g. span changed to div or node replaced) -> Re-build DOM!
         scoreBarEl.innerHTML = `
           <div class="score-stat-card">
             <span class="stat-label">SCORE</span>
-            <span class="stat-val">${score}</span>
+            <span class="stat-val">${curScore}</span>
           </div>
           <div class="score-stat-card highlight">
             <span class="stat-label">HIGH SCORE</span>
-            <span class="stat-val">${highScore}</span>
+            <span class="stat-val">${curHigh}</span>
           </div>
         `;
       } else {
-        if (currentScoreSpan.textContent !== String(score)) {
-          currentScoreSpan.textContent = String(score);
+        if (currentScoreSpan.textContent !== String(curScore)) {
+          currentScoreSpan.textContent = String(curScore);
         }
-        if (currentHighSpan.textContent !== String(highScore)) {
-          currentHighSpan.textContent = String(highScore);
+        if (currentHighSpan.textContent !== String(curHigh)) {
+          currentHighSpan.textContent = String(curHigh);
         }
       }
 
@@ -122,7 +168,9 @@ export function Game() {
       });
     }
 
-    updateSecurityUI();
+    const auditTimer = setInterval(enforceScoreBarDOM, 350);
+
+    enforceScoreBarDOM();
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
@@ -191,12 +239,12 @@ export function Game() {
       phase = 'waiting';
       lastTimestamp = undefined;
       sceneOffset = 0;
-      score = 0;
+      setScore(0);
+      enforceScoreBarDOM();
 
       introEl.style.opacity  = '1';
       perfectEl.style.opacity = '0';
       restartBtn.style.display = 'none';
-      scoreEl.innerText = '0';
 
       if (jumpBtn) {
         jumpBtn.innerText = 'HOLD TO STRETCH';
@@ -254,9 +302,7 @@ export function Game() {
             stick.rotation = 90;
             const [next, perf] = thePlatformTheStickHits();
             if (next) {
-              score += perf ? 2 : 1;
-              scoreEl.innerText = String(score);
-              checkAndUpdateHighScore(score);
+              addScorePoints(perf ? 2 : 1);
               if (perf) {
                 perfectEl.style.opacity = '1';
                 setTimeout(() => { perfectEl.style.opacity = '0'; }, 1000);
@@ -474,6 +520,8 @@ export function Game() {
 
     return () => {
       isActive = false;
+      window.removeEventListener('keydown', preventDevToolsHotkeys);
+      clearInterval(auditTimer);
       domObserver.disconnect();
       cancelAnimationFrame(animId);
       if (jumpBtn) {
