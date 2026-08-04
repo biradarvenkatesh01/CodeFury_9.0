@@ -6,6 +6,7 @@ export function Game() {
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const scoreRef     = useRef<HTMLDivElement>(null);
   const highScoreRef = useRef<HTMLDivElement>(null);
+  const scoreBarRef  = useRef<HTMLDivElement>(null);
   const introRef     = useRef<HTMLDivElement>(null);
   const perfectRef   = useRef<HTMLDivElement>(null);
   const restartRef   = useRef<HTMLButtonElement>(null);
@@ -16,6 +17,7 @@ export function Game() {
 
     const container = containerRef.current!;
     const canvas    = canvasRef.current!;
+    const scoreBarEl = scoreBarRef.current;
     const scoreEl   = scoreRef.current!;
     const highScoreEl = highScoreRef.current;
     const introEl   = introRef.current!;
@@ -58,13 +60,12 @@ export function Game() {
       }
     }
 
+    let score = 0;
     let highScore = loadSecureHighScore();
 
     function updateSecurityUI() {
-      if (highScoreEl) highScoreEl.innerText = String(highScore);
+      enforceScoreBarDOM();
     }
-
-    updateSecurityUI();
 
     function checkAndUpdateHighScore(currentScore: number) {
       if (currentScore > highScore) {
@@ -74,23 +75,54 @@ export function Game() {
       }
     }
 
-    // ── Anti-Cheat: DOM MutationObserver (reverts Chrome DevTools DOM edits) ──
+    // ── Anti-Cheat: Deep DOM MutationObserver (prevents DevTools tag/text edit) ──
     let isUpdatingDOM = false;
 
-    const domObserver = new MutationObserver(() => {
-      if (isUpdatingDOM) return;
+    function enforceScoreBarDOM() {
+      if (isUpdatingDOM || !scoreBarEl) return;
       isUpdatingDOM = true;
-      if (scoreEl && scoreEl.innerText !== String(score)) {
-        scoreEl.innerText = String(score);
+
+      const currentScoreSpan = scoreBarEl.querySelector('.score-stat-card:not(.highlight) .stat-val');
+      const currentHighSpan  = scoreBarEl.querySelector('.score-stat-card.highlight .stat-val');
+
+      if (!currentScoreSpan || !currentHighSpan || currentScoreSpan.tagName !== 'SPAN' || currentHighSpan.tagName !== 'SPAN') {
+        // Tag tampered (e.g. span changed to div or node replaced) -> Re-build DOM!
+        scoreBarEl.innerHTML = `
+          <div class="score-stat-card">
+            <span class="stat-label">SCORE</span>
+            <span class="stat-val">${score}</span>
+          </div>
+          <div class="score-stat-card highlight">
+            <span class="stat-label">HIGH SCORE</span>
+            <span class="stat-val">${highScore}</span>
+          </div>
+        `;
+      } else {
+        if (currentScoreSpan.textContent !== String(score)) {
+          currentScoreSpan.textContent = String(score);
+        }
+        if (currentHighSpan.textContent !== String(highScore)) {
+          currentHighSpan.textContent = String(highScore);
+        }
       }
-      if (highScoreEl && highScoreEl.innerText !== String(highScore)) {
-        highScoreEl.innerText = String(highScore);
-      }
+
       isUpdatingDOM = false;
+    }
+
+    const domObserver = new MutationObserver(() => {
+      enforceScoreBarDOM();
     });
 
-    if (scoreEl) domObserver.observe(scoreEl, { childList: true, characterData: true, subtree: true });
-    if (highScoreEl) domObserver.observe(highScoreEl, { childList: true, characterData: true, subtree: true });
+    if (scoreBarEl) {
+      domObserver.observe(scoreBarEl, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true
+      });
+    }
+
+    updateSecurityUI();
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
@@ -118,7 +150,7 @@ export function Game() {
     type Phase = 'waiting' | 'stretching' | 'turning' | 'walking' | 'transitioning' | 'falling';
     let phase: Phase = 'waiting';
     let lastTimestamp: number | undefined;
-    let heroX = 0, heroY = 0, sceneOffset = 0, score = 0;
+    let heroX = 0, heroY = 0, sceneOffset = 0;
     let isActive = true;
     let animId = 0;
 
@@ -527,7 +559,7 @@ export function Game() {
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
         >
           {/* Top Score & High Score Bar */}
-          <div className="game-score-bar">
+          <div ref={scoreBarRef} className="game-score-bar">
             <div className="score-stat-card">
               <span className="stat-label">SCORE</span>
               <span ref={scoreRef} className="stat-val">0</span>
