@@ -23,24 +23,74 @@ export function Game() {
     const restartBtn = restartRef.current!;
     const jumpBtn    = jumpBtnRef.current;
 
-    // Load session high score
-    let storedHighScore = parseInt(sessionStorage.getItem('codefury_game_highscore') || '0', 10);
-    if (isNaN(storedHighScore)) storedHighScore = 0;
-    let highScore = storedHighScore;
+    // ── Anti-Cheat: Security Salt & Checksum Generator ──────────────────────
+    const SECURE_SALT = 'CF9_GAME_SECURE_SALT_2026_x89a#';
 
-    if (highScoreEl) {
-      highScoreEl.innerText = String(highScore);
+    function computeChecksum(val: number): string {
+      const rawStr = `${val}:${SECURE_SALT}:${val * 10007 + 91823}`;
+      let hash = 0;
+      for (let i = 0; i < rawStr.length; i++) {
+        hash = (hash << 5) - hash + rawStr.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash).toString(36).toUpperCase();
     }
+
+    function saveSecureHighScore(val: number) {
+      const checksum = computeChecksum(val);
+      const payload = btoa(JSON.stringify({ s: val, c: checksum }));
+      sessionStorage.setItem('codefury_game_highscore_v2', payload);
+    }
+
+    function loadSecureHighScore(): number {
+      try {
+        const raw = sessionStorage.getItem('codefury_game_highscore_v2');
+        if (!raw) return 0;
+        const { s, c } = JSON.parse(atob(raw));
+        if (typeof s !== 'number' || computeChecksum(s) !== c || s > 1000) {
+          // Tampered score detected in Session Storage
+          sessionStorage.removeItem('codefury_game_highscore_v2');
+          return 0;
+        }
+        return s;
+      } catch {
+        return 0;
+      }
+    }
+
+    let highScore = loadSecureHighScore();
+
+    function updateSecurityUI() {
+      if (highScoreEl) highScoreEl.innerText = String(highScore);
+    }
+
+    updateSecurityUI();
 
     function checkAndUpdateHighScore(currentScore: number) {
       if (currentScore > highScore) {
         highScore = currentScore;
-        sessionStorage.setItem('codefury_game_highscore', String(highScore));
-        if (highScoreEl) {
-          highScoreEl.innerText = String(highScore);
-        }
+        saveSecureHighScore(highScore);
+        updateSecurityUI();
       }
     }
+
+    // ── Anti-Cheat: DOM MutationObserver (reverts Chrome DevTools DOM edits) ──
+    let isUpdatingDOM = false;
+
+    const domObserver = new MutationObserver(() => {
+      if (isUpdatingDOM) return;
+      isUpdatingDOM = true;
+      if (scoreEl && scoreEl.innerText !== String(score)) {
+        scoreEl.innerText = String(score);
+      }
+      if (highScoreEl && highScoreEl.innerText !== String(highScore)) {
+        highScoreEl.innerText = String(highScore);
+      }
+      isUpdatingDOM = false;
+    });
+
+    if (scoreEl) domObserver.observe(scoreEl, { childList: true, characterData: true, subtree: true });
+    if (highScoreEl) domObserver.observe(highScoreEl, { childList: true, characterData: true, subtree: true });
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
@@ -392,6 +442,7 @@ export function Game() {
 
     return () => {
       isActive = false;
+      domObserver.disconnect();
       cancelAnimationFrame(animId);
       if (jumpBtn) {
         jumpBtn.removeEventListener('mousedown',  onMouseDown);
