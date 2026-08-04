@@ -10,7 +10,7 @@ import { Timeline } from './components/sections/Timeline';
 import { CodeFuryWall } from './components/sections/CodeFuryWall';
 import { PastWinners } from './components/sections/PastWinners';
 import { Sponsors } from './components/sections/Sponsors';
-// import { Game } from './components/sections/Game';
+import { Game } from './components/sections/Game';
 import { FAQ } from './components/sections/FAQ';
 import { Contact } from './components/sections/Contact';
 import { BackToTopButton } from './components/BackToTopButton';
@@ -76,7 +76,7 @@ export function App() {
             <CodeFuryWall />
             <PastWinners />
             <Sponsors />
-            {/* <Game /> */}
+            <Game />
             <FAQ />
             <Contact />
           </main>

@@ -3324,14 +3324,151 @@ font-family: 'Orbitron', sans-serif;
 .game-section-hint {
   font-size: 14px;
   color: var(--text-secondary);
-  margin-top: 8px;
+  margin-top: 24px;
+  margin-bottom: 20px;
   line-height: 1.7;
   text-align: center;
 }
 
+.game-hint-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .game-hint-small {
-  font-size: 12px;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Game Challenge & Rules Info Container ── */
+.game-info-container {
+  max-width: 780px;
+  margin: 32px auto 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.game-challenge-block {
+  width: 100%;
+}
+
+.game-challenge-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+
+.game-challenge-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  margin-bottom: 16px;
+}
+
+.game-challenge-description {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+}
+
+.game-rules-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game-rules-title {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 800;
+  color: #f59e0b; /* Vibrant gold / orange accent */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.game-rules-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game-rules-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.game-rules-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #3b82f6; /* Cyan / bright blue bullet point dot */
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.game-rules-list li strong {
+  color: #ffffff;
+}
+
+.game-rules-list li.game-rule-highlight-item {
+  padding-left: 20px;
+  margin-top: 4px;
+}
+
+.game-rules-list li.game-rule-highlight-item::before {
+  top: 10px; /* Align cyan bullet dot vertically with gold box */
+}
+
+.game-callout-box {
+  width: 100%;
+  border: 1.5px solid #d97706;
+  border-radius: 6px;
+  padding: 12px 18px;
+  background: rgba(217, 119, 6, 0.08);
+  color: #f59e0b;
+  font-size: 14.5px;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+.game-callout-box strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .game-info-container {
+    margin: 24px auto 16px;
+    gap: 20px;
+  }
+  .game-challenge-title {
+    font-size: 18px;
+  }
+  .game-rules-title {
+    font-size: 15px;
+  }
+  .game-rules-list li {
+    font-size: 13.5px;
+  }
+  .game-callout-box {
+    padding: 12px 14px;
+    font-size: 13.5px;
+  }
 }
 
 /* ── Rectangular game box ── */
@@ -3374,16 +3511,50 @@ font-family: 'Orbitron', sans-serif;
   height: 100%;
 }
 
-.game-score-new {
-  position: absolute;
-  top: 20px;
-  right: 24px;
+/* ── Game Score Bar Header ── */
+.game-score-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.score-stat-card {
+  flex: 1;
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  border-radius: 6px;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 3px 3px 0px #000000;
+}
+
+.score-stat-card.highlight {
+  background: #fef08a; /* Vibrant yellow accent for high score */
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.stat-val {
   font-family: var(--font-heading);
-  font-size: 2.2em;
+  font-size: 22px;
   font-weight: 900;
-  color: #0f172a;
-  z-index: 3;
-  pointer-events: none;
+  color: #000000;
+}
+
+.game-score-new {
+  display: none;
 }
 
 .game-intro-new {

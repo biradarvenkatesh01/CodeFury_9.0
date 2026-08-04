@@ -5,6 +5,7 @@ export function Game() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const scoreRef     = useRef<HTMLDivElement>(null);
+  const highScoreRef = useRef<HTMLDivElement>(null);
   const introRef     = useRef<HTMLDivElement>(null);
   const perfectRef   = useRef<HTMLDivElement>(null);
   const restartRef   = useRef<HTMLButtonElement>(null);
@@ -16,10 +17,30 @@ export function Game() {
     const container = containerRef.current!;
     const canvas    = canvasRef.current!;
     const scoreEl   = scoreRef.current!;
+    const highScoreEl = highScoreRef.current;
     const introEl   = introRef.current!;
     const perfectEl = perfectRef.current!;
     const restartBtn = restartRef.current!;
     const jumpBtn    = jumpBtnRef.current;
+
+    // Load session high score
+    let storedHighScore = parseInt(sessionStorage.getItem('codefury_game_highscore') || '0', 10);
+    if (isNaN(storedHighScore)) storedHighScore = 0;
+    let highScore = storedHighScore;
+
+    if (highScoreEl) {
+      highScoreEl.innerText = String(highScore);
+    }
+
+    function checkAndUpdateHighScore(currentScore: number) {
+      if (currentScore > highScore) {
+        highScore = currentScore;
+        sessionStorage.setItem('codefury_game_highscore', String(highScore));
+        if (highScoreEl) {
+          highScoreEl.innerText = String(highScore);
+        }
+      }
+    }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
@@ -153,6 +174,7 @@ export function Game() {
             if (next) {
               score += perf ? 2 : 1;
               scoreEl.innerText = String(score);
+              checkAndUpdateHighScore(score);
               if (perf) {
                 perfectEl.style.opacity = '1';
                 setTimeout(() => { perfectEl.style.opacity = '0'; }, 1000);
@@ -393,16 +415,57 @@ export function Game() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
           <h2 className="section-heading">
-            Stick man <span className="game-heading-accent">Mini Game</span>
+            STICK MAN <span className="game-heading-accent">MINI GAME</span>
           </h2>
           <div className="heading-underline" />
-          <p className="game-section-hint">
-            <span className="game-hint-desktop">Hold down the button below to stretch the stick · release to drop!</span>
-            <span className="game-hint-mobile">Tap and hold the button below to stretch the stick · release to drop!</span>
-            <br />
-            <span className="game-hint-small">Land perfectly in the red zone for <strong>DOUBLE SCORE</strong></span>
-          </p>
         </motion.div>
+
+        {/* Challenge Info & Rules Block */}
+        <motion.div
+          className="game-info-container"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+        >
+          <div className="game-challenge-block">
+            {/* <h3 className="game-challenge-title">STICK MAN CHALLENGE</h3>
+            <div className="game-challenge-divider" /> */}
+            <p className="game-challenge-description">
+              Stick Man Challenge is a fast-paced browser game where precision, quick reflexes, and perfect timing are all you need to survive. Jump, dodge, and conquer every obstacle as you climb the leaderboard and become a part of the electrifying CodeFury 9.0 experience!
+            </p>
+          </div>
+
+          <div className="game-rules-block">
+            <h4 className="game-rules-title">INDIVIDUAL OFFER – RULES TO AVAIL :</h4>
+            <ul className="game-rules-list">
+              <li>
+                Avail this offer between <strong>4th August, 2026; 11:00 AM – 6th August, 2026; 11:00 AM</strong>.
+              </li>
+              <li>
+                Only submissions made through the CodeFury website will be considered valid.
+              </li>
+              <li>
+                Once you achieve your highest score, share it on your Instagram story, tag <strong>@ieee.uvce.cs</strong>, and use the hashtags <strong>#StickManChallenge</strong> and <strong>#CodeFury9.0</strong>.
+              </li>
+              <li>
+                DM a screenshot of your highest score to <strong>@ieee.uvce.cs</strong>. (Multiple entries are welcome.)
+              </li>
+              <li className="game-rule-highlight-item">
+                <div className="game-callout-box">
+                  Top 10 players with the highest scores will receive a <strong>25% discount</strong> on their CodeFury 9.0 hackathon ticket!
+                </div>
+              </li>
+            </ul>
+          </div>
+        </motion.div>
+
+        {/* Game instructions hint */}
+        <p className="game-section-hint">
+          <span className="game-hint-text">Tap and hold the button below to stretch the stick · release to drop!</span>
+          <br />
+          <span className="game-hint-small">Land perfectly in the red zone for <strong>DOUBLE SCORE</strong></span>
+        </p>
 
         {/* Game Box — rectangular bordered container */}
         <motion.div
@@ -412,11 +475,20 @@ export function Game() {
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
         >
+          {/* Top Score & High Score Bar */}
+          <div className="game-score-bar">
+            <div className="score-stat-card">
+              <span className="stat-label">SCORE</span>
+              <span ref={scoreRef} className="stat-val">0</span>
+            </div>
+            <div className="score-stat-card highlight">
+              <span className="stat-label">HIGH SCORE</span>
+              <span ref={highScoreRef} className="stat-val">0</span>
+            </div>
+          </div>
+
           {/* The rectangular game canvas area */}
           <div ref={containerRef} className="game-canvas-container-new game-canvas-rect">
-            {/* Score */}
-            <div ref={scoreRef} className="game-score-new" />
-
             {/* Canvas */}
             <canvas
               ref={canvasRef}
