@@ -22,7 +22,7 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     colorTheme: 'green',
   },
  {
-    date: '12th and 13th August 2026',
+    date: '12th August 2026',
     title: 'Pre-CodeFury Workshop',
     description: 'Offline hands-on workshop to get you hackathon-ready.',
     link: {
