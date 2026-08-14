@@ -25,10 +25,10 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     date: '12th and 13th August 2026',
     title: 'Pre-CodeFury Workshop',
     description: 'Offline hands-on workshop to get you hackathon-ready.',
-    // link: {
-    //   text: 'Register for Workshop',
-    //   url: 'http://tinyurl.com/codefuryWeb',
-    // },
+    link: {
+      text: 'Register for Workshop',
+      url: 'https://bit.ly/Pre_CodeFuryWorkshop',
+    },
     colorTheme: 'yellow',
   },
   {
