@@ -330,6 +330,96 @@
   box-shadow: 0px 0px 0px #3b82f6;
 }
 
+/* Theme-specific shadow colors for .btn-register-now */
+.theme-yellow .btn-register-now,
+.btn-register-now.theme-yellow {
+  box-shadow: 6px 6px 0px #f59e0b;
+}
+.theme-yellow .btn-register-now:hover,
+.btn-register-now.theme-yellow:hover {
+  box-shadow: 4px 4px 0px #f59e0b;
+  background: #ffffff;
+}
+.theme-yellow .btn-register-now:active,
+.btn-register-now.theme-yellow:active {
+  box-shadow: 0px 0px 0px #f59e0b;
+}
+
+.theme-green .btn-register-now,
+.btn-register-now.theme-green {
+  box-shadow: 6px 6px 0px #10b981;
+}
+.theme-green .btn-register-now:hover,
+.btn-register-now.theme-green:hover {
+  box-shadow: 4px 4px 0px #10b981;
+  background: #ffffff;
+}
+.theme-green .btn-register-now:active,
+.btn-register-now.theme-green:active {
+  box-shadow: 0px 0px 0px #10b981;
+}
+
+.theme-cyan .btn-register-now,
+.btn-register-now.theme-cyan {
+  box-shadow: 6px 6px 0px #06b6d4;
+}
+.theme-cyan .btn-register-now:hover,
+.btn-register-now.theme-cyan:hover {
+  box-shadow: 4px 4px 0px #06b6d4;
+  background: #ffffff;
+}
+.theme-cyan .btn-register-now:active,
+.btn-register-now.theme-cyan:active {
+  box-shadow: 0px 0px 0px #06b6d4;
+}
+
+.theme-rose .btn-register-now,
+.btn-register-now.theme-rose {
+  box-shadow: 6px 6px 0px #f43f5e;
+}
+.theme-rose .btn-register-now:hover,
+.btn-register-now.theme-rose:hover {
+  box-shadow: 4px 4px 0px #f43f5e;
+  background: #ffffff;
+}
+.theme-rose .btn-register-now:active,
+.btn-register-now.theme-rose:active {
+  box-shadow: 0px 0px 0px #f43f5e;
+}
+
+.theme-violet .btn-register-now,
+.btn-register-now.theme-violet {
+  box-shadow: 6px 6px 0px #8b5cf6;
+}
+.theme-violet .btn-register-now:hover,
+.btn-register-now.theme-violet:hover {
+  box-shadow: 4px 4px 0px #8b5cf6;
+  background: #ffffff;
+}
+.theme-violet .btn-register-now:active,
+.btn-register-now.theme-violet:active {
+  box-shadow: 0px 0px 0px #8b5cf6;
+}
+
+.theme-orange .btn-register-now,
+.btn-register-now.theme-orange {
+  box-shadow: 6px 6px 0px #f97316;
+}
+.theme-orange .btn-register-now:hover,
+.btn-register-now.theme-orange:hover {
+  box-shadow: 4px 4px 0px #f97316;
+  background: #ffffff;
+}
+.theme-orange .btn-register-now:active,
+.btn-register-now.theme-orange:active {
+  box-shadow: 0px 0px 0px #f97316;
+}
+
+.timeline-card-3d .btn-register-now {
+  padding: 12px 24px;
+  font-size: 13px;
+}
+
 /* Neobrutalist explore/scroll-down arrow button */
 .btn-explore-scroll {
   display: inline-flex;

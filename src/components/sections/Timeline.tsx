@@ -103,65 +103,15 @@ export function Timeline() {
                     </p>
                     
                     {event.link && (
-                      <div style={{ marginTop: '14px' }}>
+                      <div style={{ marginTop: '16px' }}>
                         <a
                           href={event.link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn-register-3d"
-                          style={{ display: 'inline-block', width: '220px', height: '54px' }}
+                          className="btn-register-now"
                           aria-label={event.link.text}
                         >
-                          <div className="btn-register-3d-wrapper">
-                            <svg
-                              width="210"
-                              height="54"
-                              viewBox="0 0 210 54"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              {/* Top Face (Yellow/Gold) */}
-                              <polygon
-                                points="2,12 14,2 208,2 196,12"
-                                fill="#f59e0b"
-                                stroke="#000000"
-                                strokeWidth="2.5"
-                                strokeLinejoin="round"
-                              />
-                              
-                              {/* Right Face (Darker Amber) */}
-                              <polygon
-                                points="196,12 208,2 208,42 196,52"
-                                fill="#b45309"
-                                stroke="#000000"
-                                strokeWidth="2.5"
-                                strokeLinejoin="round"
-                              />
-                              
-                              {/* Front Face (White) */}
-                              <polygon
-                                points="2,12 196,12 196,52 2,52"
-                                fill="#ffffff"
-                                stroke="#000000"
-                                strokeWidth="2.5"
-                                strokeLinejoin="round"
-                              />
-
-                              {/* Text centered on the front face */}
-                              <text
-                                x="99"
-                                y="32"
-                                fill="#000000"
-                                fontSize="11"
-                                fontWeight="bold"
-                                textAnchor="middle"
-                                fontFamily="var(--font-mono)"
-                                dominantBaseline="central"
-                              >
-                                REGISTER FOR WORKSHOP
-                              </text>
-                            </svg>
-                          </div>
+                          {event.link.text}
                         </a>
                       </div>
                     )}
