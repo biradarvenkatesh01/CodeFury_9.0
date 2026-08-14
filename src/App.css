@@ -3287,10 +3287,12 @@ font-family: 'Orbitron', sans-serif;
   padding: 28px 32px !important;
 }
 
-.platform-logo-img {
+.platform-logo-img,
+.platform-logo-svg {
   height: 60px;
   width: auto;
   object-fit: contain;
+  transition: transform 0.2s ease;
 }
 
 .platform-logo-link {
