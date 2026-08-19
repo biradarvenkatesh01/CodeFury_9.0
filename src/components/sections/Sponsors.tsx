@@ -100,6 +100,53 @@ export function Sponsors() {
             </div>
           </div>
         </motion.div>
+
+        {/* ── Community Partner ── */}
+        <motion.div
+          className="sponsor-tier-block"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="sponsor-tier-label platform-tier-label">
+            COMMUNITY PARTNER
+          </div>
+          <div className="platform-sponsor-row">
+            <div className="card-3d platform-card-wrap">
+              <div className="card-3d-top" style={{ backgroundColor: '#534df8' }} />
+              <div className="card-3d-right" style={{ backgroundColor: '#3b34d9' }} />
+              <div className="card-3d-front platform-card-front">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="platform-logo-link"
+                >
+                  <svg
+                    width="438"
+                    height="512"
+                    viewBox="0 0 438 512"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="platform-logo-svg"
+                    style={{ height: '60px', width: 'auto' }}
+                  >
+                    <path
+                      d="M437.714 204.8C437.714 91.6921 346.021 0 232.914 0V307.2C232.914 420.308 324.606 512 437.714 512V204.8Z"
+                      fill="#534df8"
+                    />
+                    <path
+                      d="M0.689448 250.517C-5.4058 168.841 26.2894 5.12295 201.832 3.66009C214.023 82.2887 190.861 241.74 0.689448 250.517Z"
+                      fill="#534df8"
+                    />
+                  </svg>
+                </a>
+                <span className="platform-sponsor-name">NAVAN.AI</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

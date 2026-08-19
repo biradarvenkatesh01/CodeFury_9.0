@@ -41,7 +41,7 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     date: 'August 19, 2026',
     title: 'Registration Closes',
     description: 'Final call! Register before the portal closes.',
-    // note: '* Registrations extended to August 20th, 2026, 4:00 PM',
+    note: '* Registrations extended to August 20th, 2026, 4:00 PM',
     colorTheme: 'rose',
   },
   {
