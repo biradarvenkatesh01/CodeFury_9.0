@@ -291,10 +291,10 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
         <div className="marquee-bar">
           <div className="marquee-track marquee-track-rtl">
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`a-${i}`}>REGISTRATIONS OPEN! &nbsp;✦&nbsp; </span>
+              <span key={`a-${i}`}>REGISTRATIONS EXTENDED! &nbsp;✦&nbsp; </span>
             ))}
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`b-${i}`}>REGISTRATIONS OPEN! &nbsp;✦&nbsp; </span>
+              <span key={`b-${i}`}>REGISTRATIONS EXTENDED! &nbsp;✦&nbsp; </span>
             ))}
           </div>
         </div>
