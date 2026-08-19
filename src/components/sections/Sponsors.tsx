@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import unstopLogo from '../../assets/unstop.png';
+import bngLogo from '../../assets/bng.png';
 
 export function Sponsors() {
   return (
@@ -30,6 +31,43 @@ export function Sponsors() {
             Our <span className="sponsors-heading-accent">Sponsors</span>
           </h2>
           <div className="heading-underline" />
+        </motion.div>
+
+        {/* ── General Sponsor ── */}
+        <motion.div
+          className="sponsor-tier-block"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="sponsor-tier-label platform-tier-label">
+            GENERAL SPONSOR
+          </div>
+          <div className="platform-sponsor-row">
+            <div className="card-3d platform-card-wrap">
+              <div className="card-3d-top" style={{ backgroundColor: '#00629b' }} />
+              <div className="card-3d-right" style={{ backgroundColor: '#004066' }} />
+              <div className="card-3d-front platform-card-front">
+                <a
+                  href="https://bngbdc.ieee.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="platform-logo-link"
+                >
+                  <img
+                    src={bngLogo}
+                    alt="IEEE Bangalore Section Computer Society Logo"
+                    className="platform-logo-img"
+                    style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
+                  />
+                </a>
+                <span className="platform-sponsor-name" style={{ textAlign: 'center', fontSize: '15px' }}>
+                  IEEE BANGALORE SECTION COMPUTER SOCIETY
+                </span>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* ── Platform Partner ── */}
