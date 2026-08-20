@@ -26,8 +26,8 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'Pre-CodeFury Workshop',
     description: 'Offline hands-on workshop to get you hackathon-ready.',
     link: {
-      text: 'Register for Workshop',
-      url: 'https://bit.ly/Pre_CodeFuryWorkshop',
+      text: 'Registrations closed.',
+      url: '#',
     },
     colorTheme: 'yellow',
   },
@@ -41,21 +41,21 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     date: 'August 19, 2026',
     title: 'Registration Closes',
     description: 'Final call! Register before the portal closes.',
-    note: '* Registrations extended to August 20th, 2026, 4:00 PM',
+    note: '* Registrations extended to August 20th, 2026, 6:00 PM',
     colorTheme: 'rose',
   },
   {
     date: 'August 21-22, 2026',
     title: 'CodeFury Round 1',
     description: 'The 24\u2011hour coding showdown begins.',
-    badge: '[21st 6pm to 22nd 6pm]',
+    badge: '[21st August 6pm to 22nd August 6pm]',
     colorTheme: 'violet',
   },
   {
     date: 'August 23, 2026',
     title: 'CodeFury Round 2',
     description: 'Top teams present their innovations to the jury.',
-    badge: '[23rd 10am onwards]',
+    badge: '[23rd August 10am onwards]',
     colorTheme: 'orange',
   },
 ];
@@ -104,15 +104,24 @@ export function Timeline() {
                     
                     {event.link && (
                       <div style={{ marginTop: '16px' }}>
-                        <a
-                          href={event.link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-register-now"
-                          aria-label={event.link.text}
-                        >
-                          {event.link.text}
-                        </a>
+                        {event.link.url === '#' ? (
+                          <span
+                            className="btn-register-now"
+                            style={{ opacity: 0.75, cursor: 'not-allowed', display: 'inline-flex' }}
+                          >
+                            {event.link.text}
+                          </span>
+                        ) : (
+                          <a
+                            href={event.link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-register-now"
+                            aria-label={event.link.text}
+                          >
+                            {event.link.text}
+                          </a>
+                        )}
                       </div>
                     )}
 

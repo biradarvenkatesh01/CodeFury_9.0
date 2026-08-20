@@ -259,23 +259,23 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
             </motion.div>
 
             {/* Action Buttons */}
-            <motion.div className="hero-actions" variants={textItemVariants} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', marginTop: '8px' }}>
-              {/* Register Now Button */}
-              <a 
-                href="https://unstop.com/o/MbvFpz0?utm_medium=Share&utm_source=ieeecom4643&utm_campaign=Online_coding_challenge" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn-register-now" 
-                aria-label="Register Now"
-              >
-                REGISTER NOW
-              </a>
+            <motion.div className="hero-actions" variants={textItemVariants} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px', marginTop: '12px' }}>
+              {/* Registrations Closed Box */}
+              <div className="registrations-closed-box">
+                <div className="registrations-closed-title">
+                  <span>REGISTRATIONS CLOSED</span>
+                </div>
+                <div className="registrations-closed-subtitle">
+                  See you at CodeFury 10.0!
+                </div>
+              </div>
 
               {/* Explore/Scroll Arrow Button */}
               <button 
                 className="btn-explore-scroll" 
                 onClick={() => onExplore?.('#about')} 
                 aria-label="Explore More"
+                style={{ marginTop: '8px' }}
               >
                 <span className="explore-text">EXPLORE CODEFURY</span>
                 <svg className="explore-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -291,10 +291,10 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
         <div className="marquee-bar">
           <div className="marquee-track marquee-track-rtl">
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`a-${i}`}>REGISTRATIONS EXTENDED! &nbsp;✦&nbsp; </span>
+              <span key={`a-${i}`}>REGISTRATIONS CLOSED! &nbsp;✦&nbsp; </span>
             ))}
             {Array.from({ length: 8 }).map((_, i) => (
-              <span key={`b-${i}`}>REGISTRATIONS EXTENDED! &nbsp;✦&nbsp; </span>
+              <span key={`b-${i}`}>REGISTRATIONS CLOSED! &nbsp;✦&nbsp; </span>
             ))}
           </div>
         </div>
