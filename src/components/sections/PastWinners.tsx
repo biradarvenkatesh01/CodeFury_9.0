@@ -116,6 +116,48 @@ const WINNERS: Winner[] = [
   },
 ];
 
+const WINNERS_9: Winner[] = [
+  {
+    award: 'Winner',
+    medal: '🏆',
+    project: 'StormBreakers',
+    team: 'StormBreakers',
+    college: 'UVCE',
+    tech: ['React', 'Vite', 'Node.js', 'Python', 'Supabase'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/KARJ-labs/StormBreakers_9.0' },
+      { label: 'Live Demo', url: 'https://storm-breakers-six.vercel.app' },
+    ],
+    colorTheme: 'gold',
+  },
+  {
+    award: 'First Runner Up',
+    medal: '🥈',
+    project: 'Lord of the Gits',
+    team: 'Lord of the Gits',
+    college: 'RV University & BMSCE',
+    tech: ['React', 'Vite', 'JavaScript', 'CSS'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/adidihareesh/codefury' },
+      { label: 'Live Demo', url: 'https://codefury1.vercel.app/#/trust-layer' },
+    ],
+    colorTheme: 'silver',
+  },
+  {
+    award: 'Second Runner Up',
+    medal: '🥉',
+    project: 'Zenforge',
+    team: 'Zenforge',
+    college: 'CMR University',
+    tech: ['React', 'Vite', 'Tailwind', 'Node.js', 'Netlify'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/vikasvkori1290/codefury-9.0' },
+      { label: 'Live Demo', url: 'https://forgemodel.netlify.app/' },
+    ],
+    colorTheme: 'bronze',
+  },
+];
+
 const themeMap = {
   gold: {
     top: '#eab308',
@@ -275,6 +317,90 @@ export function PastWinners() {
                       <span key={techName} className="winner-tech-chip">{techName}</span>
                     ))}
                   </div>
+
+                  {/* Links */}
+                  <div className="winner-links-row">
+                    {w.links.map(link => (
+                      <a
+                        key={link.label}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="winner-link-btn"
+                      >
+                        {link.label === 'GitHub' ? '⌥ ' : '🔗 '}
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* CodeFury 9.0 Section Header */}
+        <motion.div
+          id="winners-9"
+          className="section-header-block"
+          style={{ marginTop: '72px' }}
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <h2 className="section-heading">
+            CodeFury <span className="winners-heading-accent">9.0 Winners</span>
+          </h2>
+          <div className="heading-underline" />
+          <p className="winners-subtitle">Celebrating excellence from CodeFury 9.0</p>
+        </motion.div>
+
+        {/* CodeFury 9.0 Top 3 Winners */}
+        <div className="top-winners-grid winners-grid-9">
+          {WINNERS_9.map((w, i) => {
+            const t = themeMap[w.colorTheme];
+            return (
+              <motion.div
+                key={w.project}
+                className="card-3d winners-card-3d"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: i * 0.08 }}
+              >
+                <div className="card-3d-top" style={{ backgroundColor: t.top }} />
+                <div className="card-3d-right" style={{ backgroundColor: t.right }} />
+                <div className="card-3d-front" style={{ backgroundColor: t.front }}>
+                  {/* Award badge row */}
+                  <div className="winner-award-row">
+                    <span className="winner-medal">{w.medal}</span>
+                    <span className={`winner-award-badge ${t.badge}`}>{w.award}</span>
+                  </div>
+
+                  {/* Project name */}
+                  <h3 className="winner-project-title">{w.project}</h3>
+
+                  {/* Team & College */}
+                  <div className="winner-meta">
+                    <div className="winner-meta-row">
+                      <span className="winner-meta-icon">👥</span>
+                      <span className="winner-meta-text"><strong>{w.team}</strong></span>
+                    </div>
+                    <div className="winner-meta-row">
+                      <span className="winner-meta-icon">🏛️</span>
+                      <span className="winner-meta-text">{w.college}</span>
+                    </div>
+                  </div>
+
+                  {/* Tech stack (only render if non-empty) */}
+                  {w.tech.length > 0 && (
+                    <div className="winner-tech-row">
+                      {w.tech.map(techName => (
+                        <span key={techName} className="winner-tech-chip">{techName}</span>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Links */}
                   <div className="winner-links-row">

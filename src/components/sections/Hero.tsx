@@ -270,18 +270,29 @@ export function Hero({ isReveal = false, onExplore }: HeroProps) {
                 </div>
               </div>
 
-              {/* Explore/Scroll Arrow Button */}
-              <button 
-                className="btn-explore-scroll" 
-                onClick={() => onExplore?.('#about')} 
-                aria-label="Explore More"
-                style={{ marginTop: '8px' }}
-              >
-                <span className="explore-text">EXPLORE CODEFURY</span>
-                <svg className="explore-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                  <path d="M12 5v14M19 12l-7 7-7-7" />
-                </svg>
-              </button>
+              {/* Button row: Explore + View Winners */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {/* Explore/Scroll Arrow Button */}
+                <button
+                  className="btn-explore-scroll"
+                  onClick={() => onExplore?.('#about')}
+                  aria-label="Explore More"
+                >
+                  <span className="explore-text">EXPLORE CODEFURY</span>
+                  <svg className="explore-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M12 5v14M19 12l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* View Winners Button */}
+                <a
+                  href="#winners-9"
+                  className="btn-view-winners"
+                  aria-label="View Past Winners"
+                >
+                  🏆 <span>VIEW WINNERS</span>
+                </a>
+              </div>
             </motion.div>
           </motion.div>
       </div>

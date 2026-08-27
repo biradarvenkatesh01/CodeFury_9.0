@@ -493,6 +493,38 @@
   box-shadow: 0px 0px 0px #000000;
 }
 
+/* View Winners button in hero */
+.btn-view-winners {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff8e7;
+  border: 2.5px solid #000000;
+  border-radius: 6px;
+  padding: 12px 20px;
+  color: #000000;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #c8960a;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.btn-view-winners:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #c8960a;
+  background: #fef3c7;
+}
+
+.btn-view-winners:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px #c8960a;
+}
+
 .explore-arrow-svg {
   width: 14px;
   height: 14px;
@@ -2949,6 +2981,22 @@ font-family: 'Orbitron', sans-serif;
   max-width: 1000px;
   margin: 36px auto 0 auto;
   width: 100%;
+}
+
+/* CodeFury 9.0 winners grid overrides.
+   minmax(0, 1fr) forces truly equal column widths — plain 1fr uses
+   minmax(auto, 1fr) which lets "Lord of the Gits" widen its column.
+   Wider max-width + tighter gap + reduced padding gives each card
+   enough text area for "LORD OF THE GITS" to sit on a single line. */
+.winners-grid-9 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1200px;
+  gap: 20px;
+}
+
+.winners-grid-9 .card-3d-front {
+  flex: 1;
+  padding: 24px;
 }
 
 @media (max-width: 900px) {
